@@ -6,7 +6,7 @@ public class Patient extends Person{
 	private String insurance;
 	private String vitals;
 	private String allergies = null;
-	//private Doctor assignedDoctor;
+	private Doctor assignedDoctor;
 	private PatientNode summaryHead = null;
 	private PatientNode prescriptionHead;
 	private PatientNode immunizationHead;
@@ -118,14 +118,14 @@ public class Patient extends Person{
 		return messageHead;
 	}
 
-	//public void addMessage(String date, String message) {
-		//if (messageHead == null) {
-			//MessageNode node = new MessageNode(date, message, null, this, this.assignedDoctor);
-			//messageHead = node;
-		//}
-		//else {
-			//MessageNode node = new MessageNode(date, message, messageHead, this, this.assignedDoctor);
-			//messageHead = node;
-		//}
-	//}
+	public void addMessage(String date, String message) {
+		if (messageHead == null) {
+			MessageNode node = new MessageNode(date, message, null, this, this.assignedDoctor);
+			messageHead = node;
+		}
+		else {
+			MessageNode node = new MessageNode(date, message, messageHead, this, this.assignedDoctor);
+			messageHead = node;
+		}
+	}
 }
