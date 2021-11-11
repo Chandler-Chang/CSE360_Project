@@ -5,23 +5,13 @@ class Nurse extends Person {
 	private Doctor assignedDoc;
 
 	// Default Nurse Constructor
-	public Nurse() {
-		this.firstName = "";
-		this.lastName = "";
-		this.username = "";
-		this.password = "";
-		this.assignedDoc = null;
-	}
+	public Nurse() { this.assignedDoc = null; }
 	
 	// Constructor of Nurse with first and last name, user name and password
 	public Nurse(String First, String Last, String uname, String passwd) {
-		this.firstName = First;
-		this.lastName = Last;
-		this.username = uname;
-		this.password = passwd;
+		super(First, Last, uname, passwd);
 		this.assignedDoc = null;
 	}
-
 	
 	// Change Nurse's assigned doctor
 	public void setDoc(Doctor newDoc) { this.assignedDoc = newDoc; }

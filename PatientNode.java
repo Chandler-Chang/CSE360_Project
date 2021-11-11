@@ -11,29 +11,17 @@ public class PatientNode {
 		this.next = next;
 	}
 
-	public String getDate() {
-		return date;
-	}
+	public void setDate(String date) { this.date = date; }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+	public void setInfo(String info) { this.info = info; }
 
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
-	}
-
-	public PatientNode getNext() {
-		return next;
-	}
-
-	public void setNext(PatientNode next) {
-		this.next = next;
-	}
+	public void setNext(PatientNode next) { this.next = next; }
 	
 	
+	
+	public String getDate() { return this.date; }
+
+	public String getInfo() { return this.info; }
+	 
+	public PatientNode getNext() { return this.next; }
 }

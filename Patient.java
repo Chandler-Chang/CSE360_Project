@@ -1,4 +1,3 @@
-
 public class Patient extends Person{
 	private String birthdate;
 	private String pharmacy;
@@ -12,67 +11,41 @@ public class Patient extends Person{
 	private PatientNode immunizationHead;
 	private MessageNode messageHead;
 	
-	public Patient(String name) {
-		super(name);
+	// Default Patient Constructor
+	public Patient() {}
+	
+	// Constructor of Patient with first and last name, user name and password
+	public Patient(String first, String last, String uname, String passwd) {
+		super(first, last, uname, passwd);
 	}
 	
-	public String getBirthdate() {
-		return birthdate;
-	}
+	// Changes patient's birth date
+	public void setBirthdate(String birthdate) { this.birthdate = birthdate; }
+
+	// Changes patient's pharmacy
+	public void setPharmacy(String pharmacy) { this.pharmacy = pharmacy; }	
+
+	// Changes patient's pharmacy address
+	public void setPharmacyAddress(String pharmacyAddress) { this.pharmacyAddress = pharmacyAddress; }
+
+	// Changes patient's vitals
+	public void setVitals(String vitals) { this.vitals = vitals; }
+
+	// Changes patient's insurance info
+	public void setInsurance(String insurance) { this.insurance = insurance; }
 	
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	public String getPharmacy() {
-		return pharmacy;
-	}
-
-	public void setPharmacy(String pharmacy) {
-		this.pharmacy = pharmacy;
-	}
-
-	public String getPharmacyAddress() {
-		return pharmacyAddress;
-	}
-
-	public void setPharmacyAddress(String pharmacyAddress) {
-		this.pharmacyAddress = pharmacyAddress;
-	}
-
-	public String getInsurance() {
-		return insurance;
-	}
-
-	public void setInsurance(String insurance) {
-		this.insurance = insurance;
-	}
-
-	public String getVitals() {
-		return vitals;
-	}
-
-	public void setVitals(String vitals) {
-		this.vitals = vitals;
-	}
-
-	public String getAllergies() {
-		return allergies;
-	}
-
+	// Adds to list of patients allergies
 	public void addAllergies(String allergies) {
-		if (allergies == null ) {
-			this.allergies = allergies;
-		}
-		else {
-			this.allergies = this.allergies + ", " + allergies;
-		}
+		this.allergies = (allergies == null) ? allergies : this.allergies + ", " + allergies;
+	}
+	
+	// Adds patient to doctors assigned patients if he has space for them
+	public void setDoctor (Doctor doctor) {
+		boolean didAdd = doctor.addPatient(this);
+		if (didAdd) this.assignedDoctor = doctor;
 	}
 
-	public PatientNode getSummary() {
-		return summaryHead;
-	}
-
+	// Adds to patient's summary
 	public void addSummary(String date, String summary) {
 		if (summaryHead == null) {
 			PatientNode node = new PatientNode(date, summary, null);
@@ -84,10 +57,7 @@ public class Patient extends Person{
 		}
 	}
 	
-	public PatientNode getPrescription() {
-		return prescriptionHead;
-	}
-
+	// Adds new prescription for the patient
 	public void addPrescription(String date, String prescription) {
 		if (prescriptionHead == null) {
 			PatientNode node = new PatientNode(date, prescription, null);
@@ -99,10 +69,7 @@ public class Patient extends Person{
 		}
 	}
 	
-	public PatientNode getImmunization() {
-		return immunizationHead;
-	}
-
+	// Adds new immunization for the patient
 	public void addImmunization(String date, String immunization) {
 		if (immunizationHead == null) {
 			PatientNode node = new PatientNode(date, immunization, null);
@@ -114,10 +81,7 @@ public class Patient extends Person{
 		}
 	}
 	
-	public MessageNode getMessages() {
-		return messageHead;
-	}
-
+	// Adds new message between patient and doctor
 	public void addMessage(String date, String message) {
 		if (messageHead == null) {
 			MessageNode node = new MessageNode(date, message, null, this, this.assignedDoctor);
@@ -128,4 +92,39 @@ public class Patient extends Person{
 			messageHead = node;
 		}
 	}
+	
+	
+	// Return patient's birth date
+	public String getBirthdate() { return this.birthdate; }
+
+	// Return patient's pharmacy
+	public String getPharmacy() { return this.pharmacy; }
+
+	// Return patient's pharmacy address
+	public String getPharmacyAddress() { return this.pharmacyAddress; }
+
+	// Return patient's insurance
+	public String getInsurance() { return this.insurance; }
+
+	// Return patient's vitals
+	public String getVitals() { return this.vitals; }
+
+	// Return patient's allergies
+	public String getAllergies() { return this.allergies; }
+	
+	// Return patient's assigned doctor
+	public Doctor getDoc() { return this.assignedDoctor; }
+	
+	// Return patient's summary
+	public PatientNode getSummary() { return this.summaryHead; }
+	
+	// Return patient's current prescriptions
+	public PatientNode getPrescription() { return this.prescriptionHead; }
+	
+	// Returns patient's immunizations
+	public PatientNode getImmunization() { return this.immunizationHead; }
+
+	// Return patient's messages
+	public MessageNode getMessages() { return this.messageHead; }
+	
 }
