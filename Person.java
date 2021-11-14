@@ -1,9 +1,8 @@
-
 public class Person {
 	// Each person has first/last name, user name and password
 	protected String firstName, lastName;
 	protected String username, password;
-	protected int id;
+	protected int ID;
 	
 	// Default Person Constructor
 	public Person() {
@@ -11,16 +10,16 @@ public class Person {
 		this.lastName = "";
 		this.username = "";
 		this.password = "";
-		this.id = "";
+		this.ID = 0;
 	}
 		
 	// Constructor of Person with first and last name, user name and password
-	public Person(String First, String Last, String uname, String passwd, int id) {
+	public Person(String First, String Last, String uname, String passwd, int ID) {
 		this.firstName = First;
 		this.lastName = Last;
 		this.username = uname;
 		this.password = passwd;
-		this.id = id;
+		this.ID = ID;
 	}
 	
 	// Change Person's first name
@@ -37,7 +36,7 @@ public class Person {
 	public void setPassword(String passwd) { this.password = passwd; }
 	
 	// Set Person's ID
-	public void setID(int id) { this.id = id; }
+	public void setID(int ID) { this.ID = ID; }
 	
 	
 	// Returns Person's first name
@@ -53,5 +52,5 @@ public class Person {
 	public String getPassword() { return this.password; }
 	
 	// Returns Person's password
-	public int getID() { return this.id; }
+	public int getID() { return this.ID; }
 }

@@ -15,8 +15,8 @@ public class Patient extends Person{
 	public Patient() {}
 	
 	// Constructor of Patient with first and last name, user name and password
-	public Patient(String first, String last, String uname, String passwd) {
-		super(first, last, uname, passwd);
+	public Patient(String first, String last, String uname, String passwd, int ID) {
+		super(first, last, uname, passwd, ID);
 	}
 	
 	// Changes patient's birth date
@@ -39,58 +39,39 @@ public class Patient extends Person{
 		this.allergies = (allergies == null) ? allergies : this.allergies + ", " + allergies;
 	}
 	
-	// Adds patient to doctors assigned patients if he has space for them
+	// Adds patient to doctors assigned patients if assigned patient list has space for them
 	public void setDoctor (Doctor doctor) {
-		boolean didAdd = doctor.addPatient(this);
-		if (didAdd) this.assignedDoctor = doctor;
+		if (doctor == null) this.assignedDoctor = null;
+		if (doctor.addPatient(this.ID)) 
+			this.assignedDoctor = doctor;
 	}
 
 	// Adds to patient's summary
 	public void addSummary(String date, String summary) {
-		if (summaryHead == null) {
-			PatientNode node = new PatientNode(date, summary, null);
-			summaryHead = node;
-		}
-		else {
-			PatientNode node = new PatientNode(date, summary, summaryHead);
-			summaryHead = node;
-		}
+		summaryHead = (summaryHead == null) ?
+			new PatientNode(date, summary, null) :
+			new PatientNode(date, summary, summaryHead);
 	}
 	
 	// Adds new prescription for the patient
 	public void addPrescription(String date, String prescription) {
-		if (prescriptionHead == null) {
-			PatientNode node = new PatientNode(date, prescription, null);
-			prescriptionHead = node;
-		}
-		else {
-			PatientNode node = new PatientNode(date, prescription, summaryHead);
-			prescriptionHead = node;
-		}
+		prescriptionHead = (prescriptionHead == null) ?
+			new PatientNode(date, prescription, null) :
+			new PatientNode(date, prescription, summaryHead);
 	}
 	
 	// Adds new immunization for the patient
 	public void addImmunization(String date, String immunization) {
-		if (immunizationHead == null) {
-			PatientNode node = new PatientNode(date, immunization, null);
-			immunizationHead = node;
-		}
-		else {
-			PatientNode node = new PatientNode(date, immunization, summaryHead);
-			immunizationHead = node;
-		}
+		immunizationHead = (immunizationHead == null) ?
+			new PatientNode(date, immunization, null) :
+			new PatientNode(date, immunization, summaryHead);
 	}
 	
 	// Adds new message between patient and doctor
 	public void addMessage(String date, String message) {
-		if (messageHead == null) {
-			MessageNode node = new MessageNode(date, message, null, this, this.assignedDoctor);
-			messageHead = node;
-		}
-		else {
-			MessageNode node = new MessageNode(date, message, messageHead, this, this.assignedDoctor);
-			messageHead = node;
-		}
+		messageHead = (messageHead == null) ?
+			new MessageNode(date, message, null, this, this.assignedDoctor) :
+			new MessageNode(date, message, messageHead, this, this.assignedDoctor);
 	}
 	
 	
