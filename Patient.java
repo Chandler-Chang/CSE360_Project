@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 public class Patient extends Person{
 	private String birthdate;
 	private String pharmacy;
@@ -10,6 +15,8 @@ public class Patient extends Person{
 	private PatientNode prescriptionHead;
 	private PatientNode immunizationHead;
 	private MessageNode messageHead;
+		
+	protected Patient[] allPatients = new Patient[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	// Default Patient Constructor
 	public Patient() {}
@@ -108,4 +115,61 @@ public class Patient extends Person{
 	// Return patient's messages
 	public MessageNode getMessages() { return this.messageHead; }
 	
+	
+	public String writePatientData(Patient[] allPatients) {	//NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		try {
+			PrintStream outFile = new PrintStream(new File("patientData.txt"));
+			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(allPatients[i].getFirst());
+				outFile.println(allPatients[i].getLast());
+				outFile.println(allPatients[i].getUserName());
+				outFile.println(allPatients[i].getPassword());
+				outFile.println(allPatients[i].getID());
+				outFile.println(allPatients[i].getDoc());
+				outFile.println(allPatients[i].getBirthdate());
+				outFile.println(allPatients[i].getPharmacy());
+				outFile.println(allPatients[i].getPharmacyAddress());
+				outFile.println(allPatients[i].getInsurance());
+				outFile.println(allPatients[i].getAllergies());
+				outFile.println();
+			}
+			outFile.close();
+			return("File written succesfully");
+		} catch (FileNotFoundException e) {
+			return("Error: Unable to open file for writing");
+		}
+	
+	}
+	
+	public String readPatientData() {	//NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		Scanner read = null;
+		try {
+			read = new Scanner(new File("patientData.txt"));
+			for(int i = 0; i < 100; i++) {
+				String fName = read.nextLine();
+				String lName = read.nextLine();
+				String uName = read.nextLine();
+				String passwd = read.nextLine();
+				int ID = read.nextInt();
+				int assignedDoc = read.nextInt();
+				
+				Patient data = new Patient(fName, lName, uName, passwd, ID);
+				setDoctor(assignedDoc);
+				setBirthdate(read.nextLine());
+				setPharmacy(read.nextLine());
+				setPharmacyAddress(read.nextLine());
+				setInsurance(read.nextLine());
+				addAllergies(read.nextLine());
+				
+				allPatients[i] = data;
+			}
+			
+			read.close();
+			
+			return "File read successfully";
+		} catch (FileNotFoundException e) {
+			return("Error: File not found");
+		}
+	
+	}
 }
