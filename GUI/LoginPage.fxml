@@ -13,11 +13,11 @@
    <children>
       <Button fx:id="LoginButton" layoutX="386.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleLoginButton" prefHeight="25.0" prefWidth="68.0" text="Log In" />
       <ComboBox fx:id="portalComboBox" cache="true" layoutX="304.0" layoutY="196.0" prefWidth="150.0" promptText="Patient" visibleRowCount="3" />
-      <Label fx:id="portalTextField" layoutX="304.0" layoutY="162.0" text="I am a:" />
+      <Label layoutX="304.0" layoutY="162.0" text="I am a:" />
       <PasswordField fx:id="passwordTextField" layoutX="89.0" layoutY="233.0" />
-      <Label fx:id="LoginTextFiel" layoutX="89.0" layoutY="161.0" text="Log-In Authentication" />
+      <Label layoutX="89.0" layoutY="161.0" text="Log-In Authentication" />
       <TextField fx:id="UsernameTextField" layoutX="89.0" layoutY="196.0" />
-      <ImageView fx:id="loginLogo" fitHeight="173.0" fitWidth="450.0" layoutX="46.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="173.0" fitWidth="450.0" layoutX="46.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Documents/logo_bestdoctors_inv.png" />
          </image>

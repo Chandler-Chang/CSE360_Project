@@ -20,15 +20,9 @@ public class LoginController{
 	@FXML
 	private ComboBox<String> portalComboBox;
 	@FXML
-	private Label portalTextField;
-	@FXML
 	private PasswordField passwordTextField;
 	@FXML
-	private Label LoginTextFiel;
-	@FXML
 	private TextField UsernameTextField;
-	@FXML
-	private ImageView loginLogo;
 	
 	private Main main;
 	
@@ -46,6 +40,7 @@ public class LoginController{
 				"Nurse",
 				"Doctor"
 				);
+		portalComboBox.setValue("Patient");
 	}
 	
 	//This method is called whenever the log in button is clicked
@@ -76,19 +71,21 @@ public class LoginController{
 		stage.setScene(new Scene(root));
 		stage.setTitle("Nurse Portal");
 		stage.show();
+		nurseController.setData();
 	}
 	
 	//sends to patientPortal
 	private void sendToPatientPortal() throws IOException{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("asd"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Patient_Portal.fxml"));
 		Parent root = loader.load();
 		
-		//patientController patientController = loader.getController();
-		//patientController.setMain(this.main);
+		patientController patientController = loader.getController();
+		patientController.setMain(this.main);
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Patient Portal");
 		stage.show();
+		patientController.setData();
 	}
 	
 	//sends to doctorPortal
@@ -96,11 +93,12 @@ public class LoginController{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("doctorPortal.fxml"));
 		Parent root = loader.load();
 		
-		//doctorController doctorController = loader.getController();
-		//doctorController.setMain(this.main);
+		doctorController doctorController = loader.getController();
+		doctorController.setMain(this.main);
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Doctor Portal");
 		stage.show();
+		doctorController.setData();
 	}
 }

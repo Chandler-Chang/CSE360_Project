@@ -28,19 +28,19 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <DatePicker layoutX="243.0" layoutY="205.0" promptText="Patient's Birthdate" />
+            <DatePicker fx:id="birthdateBox" layoutX="243.0" layoutY="205.0" promptText="Patient's Birthdate" />
             <Button fx:id="backButton" layoutX="16.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="39.0" prefWidth="124.0" text="Back">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="493.0" layoutY="322.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="124.0" text="Search">
+            <Button fx:id="searchButton" layoutX="493.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="39.0" prefWidth="124.0" text="Search">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <TextField layoutX="246.0" layoutY="67.0" promptText="Patient's First Name" />
-            <TextField layoutX="246.0" layoutY="120.0" promptText="Patient's First Name" />
+            <TextField fx:id="firstNameBox" layoutX="246.0" layoutY="67.0" promptText="Patient's First Name" />
+            <TextField fx:id="lastNameBox" layoutX="246.0" layoutY="120.0" promptText="Patient's First Name" />
          </children>
          <effect>
             <Blend mode="DARKEN" />

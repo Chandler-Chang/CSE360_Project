@@ -14,11 +14,22 @@ public class patientSearchController {
 		public void setMain(Main main) {
 			this.main = main;
 		}
+		public void setData() {
+			
+		}
 		@FXML
-		private Button backButton;
+		private DatePicker birthdateBox;
+		@FXML
+		private Button searchButton, backButton;
+		@FXML
+		private TextField firstNameBox, lastNameBox;
 		//Closes the window when back button is pressed. (Sometimes it caused an error)
 		@FXML
 		public void handleBack(ActionEvent event) {
 			((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+		}
+		@FXML
+		public void handleSearch(ActionEvent event) {
+			
 		}
 }

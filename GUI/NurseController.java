@@ -17,29 +17,19 @@ public class NurseController {
 	public void setMain(Main main) {
 		this.main = main;
 	}
+	//to change any data
+	public void setData() {
+		
+	}
 	//Patient's Info Tab
 	@FXML
-	private TextArea patientsInfoArea;
-	@FXML
-	private TextArea ImmRecordsArea;
-	@FXML
-	private TextArea AppHistoryArea;
+	private TextArea patientsInfoArea, ImmRecordsArea, AppHistoryArea;
 	
 	//Make a Vital Report Tab
 	@FXML
 	private DatePicker DateBox;
 	@FXML
-	private TextField patientFt;
-	@FXML
-	private TextField patientIn;
-	@FXML
-	private TextField patientWeightBox;
-	@FXML
-	private TextField patientTempBox;
-	@FXML
-	private TextField bloopTopBox;
-	@FXML
-	private TextField bloopBotBox;
+	private TextField patientFt, patientIn, patientWeightBox, patientTempBox, bloopTopBox, bloopBotBox;
 	@FXML
 	private CheckBox isOver12;
 	//what happens when the checkbox (over 12) is checked, maybe we wont need this function
@@ -50,11 +40,7 @@ public class NurseController {
 	
 	//Everything outside of tabs
 	@FXML
-	private Button submitButton;
-	@FXML
-	private Button editButton;
-	@FXML
-	private Button searchPatientButton;
+	private Button submitButton, editButton, searchPatientButton;
 	@FXML
 	private ListView<String> patientList;
 	//Pops up the search patient window
@@ -76,10 +62,6 @@ public class NurseController {
 	}
 	@FXML
 	public void handleEditButton(ActionEvent event) {
-		
-	}
-	//To change data
-	public void setData() {
 		
 	}
 }
