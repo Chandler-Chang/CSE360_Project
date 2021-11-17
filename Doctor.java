@@ -1,15 +1,13 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+package application;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 class Doctor extends Person {
 	private ArrayList<Integer> assignedNurses;
 	private ArrayList<Integer> assignedPatients;
-	private MessageNode messageHead;
+	// private MessageNode messageHead;
 	
-	protected Doctor[] allDoctors = new Doctor[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// protected Doctor[] allDoctors = new Doctor[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	// Default Doctor Constructor
 	// Default Nurse/Patient Arrays equal to 10 per doctor
@@ -117,7 +115,7 @@ class Doctor extends Person {
 	
 	
 	// Return Messages
-	public MessageNode getMessages() { return this.messageHead; }
+	// public MessageNode getMessages() { return this.messageHead; }
 	
 	
 //	// Add doctor's message to the patient
@@ -138,78 +136,5 @@ class Doctor extends Person {
 //		this.messageHead = node;
 //		return true;
 //	}
-	
-	
-	public String writeDoctorData(Doctor[] allDoctors) {	//NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		try {
-			PrintStream outFile = new PrintStream(new File("doctorData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allDoctors[i].getFirst());
-				outFile.println(allDoctors[i].getLast());
-				outFile.println(allDoctors[i].getUserName());
-				outFile.println(allDoctors[i].getPassword());
-				outFile.println(allDoctors[i].getID());
-				ArrayList<Integer> nursesAssigned = new ArrayList<>(10);
-				nursesAssigned = allDoctors[i].getAssignedNurses();
-				for(int j = 0; j < nursesAssigned.size; j++) {
-					outFile.print(nursesAssigned.get(j));
-				}
-				outFile.println();
-				
-				ArrayList<Integer> patientsAssigned = new ArrayList<>(10);
-				patientsAssigned = allDoctors[i].getAssignedPatients();
-				for(int j = 0; j < patientsAssigned.size; j++) {
-					outFile.print(patientsAssigned.get(j));
-				}
-				outFile.println();
-			}
-			outFile.close();
-			return("File written succesfully");
-		} catch (FileNotFoundException e) {
-			return("Error: Unable to open file for writing");
-		}
-	
-	}
-	
-	public String readDoctorData() {	//NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		Scanner read = null;
-		try {
-			read = new Scanner(new File("doctorData.txt"));
-			for(int i = 0; i < 100; i++) {
-				String fName = read.nextLine();
-				String lName = read.nextLine();
-				String uName = read.nextLine();
-				String passwd = read.nextLine();
-				int ID = read.nextInt();
-				Doctor data = new Doctor(fName, lName, uName, passwd, ID);
-				String nurses = read.nextLine();
-				int a = 0; int b = 4;
-				while(b < nurses.length()) {
-					String IDasString = nurses.substring(a, b);
-					int IDasInt = Integer.parseInt(IDasString);
-					data.addNurse(IDasInt);
-					a++;
-					b = a * b;
-				}
-				String patients = read.nextLine();
-				a = 0; b = 4;
-				while(b < patients.length()) {
-					String IDasString = patients.substring(a, b);
-					int IDasInt = Integer.parseInt(IDasString);
-					data.addPatient(IDasInt);
-					a++;
-					b = a * b;
-				}
-				allDoctors[i] = data;
-			}
-			
-			read.close();
-			
-			return "File read successfully";
-		} catch (FileNotFoundException e) {
-			return("Error: File not found");
-		}
-	
-	}
 	
 }
