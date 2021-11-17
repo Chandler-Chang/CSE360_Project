@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
@@ -28,7 +27,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <DatePicker fx:id="birthdateBox" layoutX="243.0" layoutY="205.0" promptText="Patient's Birthdate" />
             <Button fx:id="backButton" layoutX="16.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="39.0" prefWidth="124.0" text="Back">
                <font>
                   <Font size="18.0" />
@@ -41,6 +39,7 @@
             </Button>
             <TextField fx:id="firstNameBox" layoutX="246.0" layoutY="67.0" promptText="Patient's First Name" />
             <TextField fx:id="lastNameBox" layoutX="246.0" layoutY="120.0" promptText="Patient's First Name" />
+            <TextField fx:id="birthdateBox" layoutX="242.0" layoutY="205.0" promptText="Patient's Birthdate" />
          </children>
          <effect>
             <Blend mode="DARKEN" />
