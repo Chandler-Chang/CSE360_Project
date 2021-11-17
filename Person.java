@@ -48,7 +48,7 @@ public class Person {
 	public String getLast() { return this.lastName; }
 
 	// Returns Person's user name
-	public String getUserName() { return this.username; }
+	public String getUsername() { return this.username; }
 
 	// Returns Person's password
 	public String getPassword() { return this.password; }

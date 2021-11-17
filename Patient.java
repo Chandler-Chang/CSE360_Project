@@ -40,7 +40,12 @@ public class Patient extends Person{
 	
 	// Adds to list of patients allergies
 	public void addAllergies(String allergies) {
-		this.allergies = (allergies == null) ? allergies : this.allergies + ", " + allergies;
+		if (this.allergies == null) {
+			this.allergies = allergies;
+		}
+		else {
+			this.allergies = this.allergies + ", " + allergies;
+		}
 	}
 	
 	// Adds patient to doctors assigned patients if assigned patient list has space for them
