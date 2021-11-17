@@ -276,9 +276,9 @@ public class Main extends Application {
 	}
     
     public void generatePatients() {
-    	//readPatientData();
+    	readPatientData();
     	
-    	Patient patient = new Patient("Spongebob", "Squarepants", "ssquarepants", "gary", 1000);
+    	/*Patient patient = new Patient("Spongebob", "Squarepants", "ssquarepants", "gary", 1000);
     	PatientList.add(patient);
     	patient.setBirthdate("04/14/1992");
     	patient.setPharmacy("Krusty Krab");
@@ -291,7 +291,7 @@ public class Main extends Application {
     	patient2.setPharmacyAddress("104 Shell Lane");
     	patient2.addAllergies("Krabby Patties");
     	patient2.addAllergies("Jellyfish");
-    	PatientList.add(patient2);
+    	PatientList.add(patient2);*/
     }
     
     public void generateNurses() {
