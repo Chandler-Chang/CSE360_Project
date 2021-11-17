@@ -84,24 +84,12 @@
                   <AnchorPane prefHeight="472.0" prefWidth="587.0">
                      <children>
                         <AnchorPane layoutX="41.0" layoutY="79.0" />
-                        <Label layoutX="30.0" layoutY="66.0" text="Previous Appointments:">
+                        <Label layoutX="30.0" layoutY="34.0" text="Appointment History">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="446.0" layoutY="39.0" text="Appointment Summary">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="24.0" layoutY="254.0" prefHeight="27.0" prefWidth="222.0" text="Upcoming Appoinments:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextArea fx:id="previousArea" layoutX="24.0" layoutY="103.0" prefHeight="125.0" prefWidth="268.0" text="-&#10;-&#10;-" />
-                        <TextArea fx:id="upcomingArea" layoutX="24.0" layoutY="291.0" prefHeight="125.0" prefWidth="270.0" text="- Expected:" />
-                        <TextArea fx:id="summaryArea" layoutX="422.0" layoutY="81.0" prefHeight="354.0" prefWidth="256.0" text="Report for September 22, 2020&#10;&#10;Reason for visit:&#10;&#10;Doctor's Notes:&#10;&#10;- \\\\&#10;- &#10;- &#10;&#10;Diagnosis:&#10;&#10;Treatment:" />
+                        <TextArea fx:id="summaryArea" layoutX="30.0" layoutY="81.0" prefHeight="354.0" prefWidth="648.0" text="Report for September 22, 2020&#10;&#10;Reason for visit:&#10;&#10;Doctor's Notes:&#10;&#10;- \\\\&#10;- &#10;- &#10;&#10;Diagnosis:&#10;&#10;Treatment:" />
                      </children>
                   </AnchorPane>
                </content>
