@@ -30,6 +30,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
     	this.primaryStage = primaryStage;
+    	System.out.println("Starting");
+    	
+    	generatePatients();
+    	generateNurses();
+    	generateDoctors();
     	
     	//readPatientData();
     	//readNurseData();
@@ -108,7 +113,7 @@ public class Main extends Application {
 			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
 				outFile.println(allPatients[i].getFirst());
 				outFile.println(allPatients[i].getLast());
-				outFile.println(allPatients[i].getUserName());
+				outFile.println(allPatients[i].getUsername());
 				outFile.println(allPatients[i].getPassword());
 				outFile.println(allPatients[i].getID());
 				outFile.println(allPatients[i].getDoc());
@@ -159,7 +164,7 @@ public class Main extends Application {
 			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
 				outFile.println(allNurses[i].getFirst());
 				outFile.println(allNurses[i].getLast());
-				outFile.println(allNurses[i].getUserName());
+				outFile.println(allNurses[i].getUsername());
 				outFile.println(allNurses[i].getPassword());
 				outFile.println(allNurses[i].getID());
 				outFile.println(allNurses[i].getDoc());
@@ -220,7 +225,7 @@ public class Main extends Application {
 			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
 				outFile.println(allDoctors[i].getFirst());
 				outFile.println(allDoctors[i].getLast());
-				outFile.println(allDoctors[i].getUserName());
+				outFile.println(allDoctors[i].getUsername());
 				outFile.println(allDoctors[i].getPassword());
 				outFile.println(allDoctors[i].getID());
 				ArrayList<Integer> nursesAssigned = new ArrayList<>(10);
@@ -244,4 +249,44 @@ public class Main extends Application {
 		}
 	
 	}
+    
+    public void generatePatients() {
+    	Patient patient = new Patient("Spongebob", "Squarepants", "ssquarepants", "gary", 1000);
+    	PatientList.add(patient);
+    	patient.setBirthdate("04/14/1992");
+    	patient.setPharmacy("Krusty Krab");
+    	patient.setPharmacyAddress("123 Shell Lane");
+    	patient.addAllergies("Peanuts");
+    	
+    	Patient patient2 = new Patient("Patrick", "Star", "pstar", "patricia", 1001);
+    	patient2.setBirthdate("07/24/1990");
+    	patient2.setPharmacy("Chum Bucket");
+    	patient2.setPharmacyAddress("104 Shell Lane");
+    	patient2.addAllergies("Krabby Patties");
+    	patient2.addAllergies("Jellyfish");
+    	PatientList.add(patient2);
+    }
+    
+    public void generateNurses() {
+    	Nurse nurse = new Nurse("James", "Morgan", "jmorgan", "weezing", 2000);
+    	NurseList.add(nurse);
+    	
+    	Nurse nurse2 = new Nurse("Jessie", "Murrow", "jmurrow", "arbok", 2001);
+    	NurseList.add(nurse2);
+    }
+
+    public void generateDoctors() {
+    	Doctor doctor = new Doctor("James", "Sullivan", "jsullivan", "boo", 3000);
+    	DoctorList.add(doctor);
+    	doctor.addPatient(PatientList.get(0).getID());
+    	doctor.addNurse(NurseList.get(0).getID());
+    	NurseList.get(0).setDoctor(doctor.getID());
+    	
+    	Doctor doctor2 = new Doctor("Mike", "Wazowski", "mwazowski", "selia", 3001);
+    	DoctorList.add(doctor2);
+    	doctor2.addPatient(PatientList.get(1).getID());
+    	doctor2.addNurse(NurseList.get(1).getID());
+    	NurseList.get(1).setDoctor(doctor2.getID());
+    }
+    
 }

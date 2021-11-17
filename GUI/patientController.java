@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 
 public class patientController {
 	private Main main;
+	private Patient patient;
 	
 	private ArrayList<Patient> PatientList = new ArrayList<Patient>(100);
 	private ArrayList<Nurse> NurseList = new ArrayList<Nurse>(10);
@@ -24,6 +25,10 @@ public class patientController {
 		this.PatientList = PatientList;
 		this.NurseList = NurseList;
 		this.DoctorList = DoctorList;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 	
 	public void setData() {

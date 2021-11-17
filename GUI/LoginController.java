@@ -57,10 +57,17 @@ public class LoginController{
 	//This method is called whenever the log in button is clicked
 	@FXML
 	public void handleLoginButton(ActionEvent event) throws IOException{
-		//Login verification
+		String input_username = UsernameTextField.getText();
+		String input_password = passwordTextField.getText();
 		switch(portalComboBox.getValue()) {
 			case "Patient":
-				sendToPatientPortal();
+				for (int i = 0; i < PatientList.size(); i++) {
+					Patient patient = PatientList.get(i);
+					if (patient.getUsername().equals(input_username) && patient.getPassword().equals(input_password)) {
+						sendToPatientPortal(patient);
+					}
+				}
+				System.out.println("Incorrect login");
 				break;
 			case "Nurse":
 				sendToNursePortal();
@@ -89,13 +96,14 @@ public class LoginController{
 	}
 	
 	//sends to patientPortal
-	private void sendToPatientPortal() throws IOException{
+	private void sendToPatientPortal(Patient patient) throws IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Patient_Portal.fxml"));
 		Parent root = loader.load();
 		
 		patientController patientController = loader.getController();
 		patientController.setMain(this.main);
 		patientController.setLists(PatientList, NurseList, DoctorList);
+		patientController.setPatient(patient);
 		
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
