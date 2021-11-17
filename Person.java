@@ -1,3 +1,5 @@
+package application;
+
 public class Person {
 	// Each person has first/last name, user name and password
 	protected String firstName, lastName;

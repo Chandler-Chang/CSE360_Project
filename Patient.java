@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.Scanner;
+package application;
 
 public class Patient extends Person{
 	private String birthdate;
@@ -10,13 +7,13 @@ public class Patient extends Person{
 	private String insurance;
 	private String vitals;
 	private String allergies = null;
-	private Doctor assignedDoctor;
+	private int assignedDoctor = 0;
 	private PatientNode summaryHead = null;
 	private PatientNode prescriptionHead;
 	private PatientNode immunizationHead;
-	private MessageNode messageHead;
+	//private MessageNode messageHead;
 		
-	protected Patient[] allPatients = new Patient[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//protected Patient[] allPatients = new Patient[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	// Default Patient Constructor
 	public Patient() {}
@@ -47,10 +44,8 @@ public class Patient extends Person{
 	}
 	
 	// Adds patient to doctors assigned patients if assigned patient list has space for them
-	public void setDoctor (Doctor doctor) {
-		if (doctor == null) this.assignedDoctor = null;
-		if (doctor.addPatient(this.ID)) 
-			this.assignedDoctor = doctor;
+	public void setDoctor (int doctor) {
+		this.assignedDoctor = doctor;
 	}
 
 	// Adds to patient's summary
@@ -75,11 +70,11 @@ public class Patient extends Person{
 	}
 	
 	// Adds new message between patient and doctor
-	public void addMessage(String date, String message) {
-		messageHead = (messageHead == null) ?
-			new MessageNode(date, message, null, this, this.assignedDoctor) :
-			new MessageNode(date, message, messageHead, this, this.assignedDoctor);
-	}
+	//public void addMessage(String date, String message) {
+	//	messageHead = (messageHead == null) ?
+	//		new MessageNode(date, message, null, this, this.assignedDoctor) :
+	//		new MessageNode(date, message, messageHead, this, this.assignedDoctor);
+	//}
 	
 	
 	// Return patient's birth date
@@ -101,7 +96,7 @@ public class Patient extends Person{
 	public String getAllergies() { return this.allergies; }
 	
 	// Return patient's assigned doctor
-	public Doctor getDoc() { return this.assignedDoctor; }
+	public int getDoc() { return this.assignedDoctor; }
 	
 	// Return patient's summary
 	public PatientNode getSummary() { return this.summaryHead; }
@@ -113,63 +108,5 @@ public class Patient extends Person{
 	public PatientNode getImmunization() { return this.immunizationHead; }
 
 	// Return patient's messages
-	public MessageNode getMessages() { return this.messageHead; }
-	
-	
-	public String writePatientData(Patient[] allPatients) {	//NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		try {
-			PrintStream outFile = new PrintStream(new File("patientData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allPatients[i].getFirst());
-				outFile.println(allPatients[i].getLast());
-				outFile.println(allPatients[i].getUserName());
-				outFile.println(allPatients[i].getPassword());
-				outFile.println(allPatients[i].getID());
-				outFile.println(allPatients[i].getDoc());
-				outFile.println(allPatients[i].getBirthdate());
-				outFile.println(allPatients[i].getPharmacy());
-				outFile.println(allPatients[i].getPharmacyAddress());
-				outFile.println(allPatients[i].getInsurance());
-				outFile.println(allPatients[i].getAllergies());
-				outFile.println();
-			}
-			outFile.close();
-			return("File written succesfully");
-		} catch (FileNotFoundException e) {
-			return("Error: Unable to open file for writing");
-		}
-	
-	}
-	
-	public String readPatientData() {	//NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		Scanner read = null;
-		try {
-			read = new Scanner(new File("patientData.txt"));
-			for(int i = 0; i < 100; i++) {
-				String fName = read.nextLine();
-				String lName = read.nextLine();
-				String uName = read.nextLine();
-				String passwd = read.nextLine();
-				int ID = read.nextInt();
-				int assignedDoc = read.nextInt();
-				
-				Patient data = new Patient(fName, lName, uName, passwd, ID);
-				setDoctor(assignedDoc);
-				setBirthdate(read.nextLine());
-				setPharmacy(read.nextLine());
-				setPharmacyAddress(read.nextLine());
-				setInsurance(read.nextLine());
-				addAllergies(read.nextLine());
-				
-				allPatients[i] = data;
-			}
-			
-			read.close();
-			
-			return "File read successfully";
-		} catch (FileNotFoundException e) {
-			return("Error: File not found");
-		}
-	
-	}
+	//public MessageNode getMessages() { return this.messageHead; }
 }
