@@ -8,19 +8,63 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 
 public class doctorController {
 	private Main main;
+	private Doctor doctor;
+	private Patient patient = null;
+	
+	private ArrayList<Patient> PatientList = new ArrayList<Patient>(100);
+	private ArrayList<Nurse> NurseList = new ArrayList<Nurse>(10);
+	private ArrayList<Doctor> DoctorList = new ArrayList<Doctor>(10);
 	
 	public void setMain(Main main) {
 		this.main = main;
 	}
+	
+	public void setLists(ArrayList<Patient> PatientList, ArrayList<Nurse> NurseList, ArrayList<Doctor> DoctorList) {
+		this.PatientList = PatientList;
+		this.NurseList = NurseList;
+		this.DoctorList = DoctorList;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+	
 	//to change any data
 	public void setData() {
-		
+		if (patient != null) {
+			patientInfoArea.setText("Name: " + patient.getFirst() + " " + patient.getLast() + "\n" +
+					"Gender: " + patient.getGender() + "\n" +
+					"DOB: " + patient.getBirthdate() + "\n\n" +
+					"Height: " + patient.getHeight()/12 + "'" + patient.getHeight() % 12 + "\n" +
+					"Weight: " + patient.getWeight() + " lbs." + "\n" +
+					"Allergic to: " + patient.getAllergies() + "\n\n" +
+					"Patient's Pharmacy Name: " + patient.getPharmacy() + "\n" +
+					"Pharmacy Address: " + patient.getPharmacyAddress()
+			);
+			PatientNode patientSummary = patient.getSummary();
+			while(patientSummary != null) {
+				appHistoryArea.setText(appHistoryArea.getText() + "Date: " + patientSummary.getDate() + "\n" + "Summary: " + patientSummary.getInfo() + "\n------------------------------------------------\n");
+				patientSummary = patientSummary.getNext();
+			}
+			
+			PatientNode immunizations = patient.getImmunization();
+			while(immunizations != null) {
+				immunizationArea.setText(immunizationArea.getText() + "Date: " + immunizations.getDate() + "\n" + "Summary: " + immunizations.getInfo() + "\n------------------------------------------------\n");
+				immunizations = immunizations.getNext();
+			}
+		}
 	}
+	
 	//Patient Info Tab
 	@FXML
 	private Button pullVitalsBttn;
@@ -67,6 +111,7 @@ public class doctorController {
 	//Pops up the search patient window
 	@FXML
 	public void handlePatientSearch(ActionEvent event) throws IOException{
+		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Patient_Search.fxml"));
 		Parent root = loader.load();
 		
@@ -75,6 +120,7 @@ public class doctorController {
 		stage.setScene(new Scene(root));
 		stage.setTitle("Patient Search");
 		stage.show();
-		searchController.setData();
+		searchController.setLists(PatientList, NurseList, DoctorList);
+		searchController.setDoctor(doctor);
 	}
 }

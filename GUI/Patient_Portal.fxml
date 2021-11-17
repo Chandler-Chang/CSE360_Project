@@ -43,7 +43,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="planExpirationDate" layoutX="52.0" layoutY="391.0" prefHeight="45.0" prefWidth="182.0" text="Plan Expiration Date:">
+                        <Label fx:id="planExpirationDate" layoutX="52.0" layoutY="391.0" prefHeight="45.0" prefWidth="282.0" text="Plan Expiration Date:">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -59,7 +59,7 @@
                   <AnchorPane prefHeight="472.0" prefWidth="598.0">
                      <children>
                         <AnchorPane layoutX="41.0" layoutY="79.0" />
-                        <Label fx:id="patientName" layoutX="26.0" layoutY="23.0" prefHeight="62.0" prefWidth="142.0" text="John Doe">
+                        <Label fx:id="patientName" layoutX="26.0" layoutY="23.0" prefHeight="62.0" prefWidth="282.0" text="John Doe">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -89,19 +89,19 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="446.0" layoutY="39.0" text="Appointment Summary">
+                        <Label layoutX="446.0" layoutY="39.0" text="Appointment Summaries:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="24.0" layoutY="254.0" prefHeight="27.0" prefWidth="222.0" text="Upcoming Appoinments:">
+                        <Label layoutX="24.0" layoutY="254.0" prefHeight="27.0" prefWidth="222.0" text="Upcoming Appointments:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
                         <TextArea fx:id="previousArea" layoutX="24.0" layoutY="103.0" prefHeight="125.0" prefWidth="268.0" text="-&#10;-&#10;-" />
                         <TextArea fx:id="upcomingArea" layoutX="24.0" layoutY="291.0" prefHeight="125.0" prefWidth="270.0" text="- Expected:" />
-                        <TextArea fx:id="summaryArea" layoutX="422.0" layoutY="81.0" prefHeight="354.0" prefWidth="256.0" text="Report for September 22, 2020&#10;&#10;Reason for visit:&#10;&#10;Doctor's Notes:&#10;&#10;- \\\\&#10;- &#10;- &#10;&#10;Diagnosis:&#10;&#10;Treatment:" />
+                        <TextArea fx:id="summaryArea" layoutX="422.0" layoutY="81.0" prefHeight="354.0" prefWidth="256.0" text="" />
                      </children>
                   </AnchorPane>
                </content>

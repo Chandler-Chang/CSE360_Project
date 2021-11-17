@@ -8,15 +8,37 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 
 public class NurseController {
 	private Main main;
+	private Nurse nurse;
+	private Patient patient = null;
+	
+	private ArrayList<Patient> PatientList = new ArrayList<Patient>(100);
+	private ArrayList<Nurse> NurseList = new ArrayList<Nurse>(10);
+	private ArrayList<Doctor> DoctorList = new ArrayList<Doctor>(10);
 	
 	public void setMain(Main main) {
 		this.main = main;
 	}
+	
+	public void setLists(ArrayList<Patient> PatientList, ArrayList<Nurse> NurseList, ArrayList<Doctor> DoctorList) {
+		this.PatientList = PatientList;
+		this.NurseList = NurseList;
+		this.DoctorList = DoctorList;
+	}
+	
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
 	//to change any data
 	public void setData() {
 		
