@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,16 @@ public class LoginController{
 	private TextField UsernameTextField;
 	
 	private Main main;
+	
+	private ArrayList<Patient> PatientList = new ArrayList<Patient>(100);
+	private ArrayList<Nurse> NurseList = new ArrayList<Nurse>(10);
+	private ArrayList<Doctor> DoctorList = new ArrayList<Doctor>(10);
+	
+	public void setLists(ArrayList<Patient> PatientList, ArrayList<Nurse> NurseList, ArrayList<Doctor> DoctorList) {
+		this.PatientList = PatientList;
+		this.NurseList = NurseList;
+		this.DoctorList = DoctorList;
+	}
 	
 	//setMain controller method
 	public void setMain(Main main) {
@@ -46,17 +57,18 @@ public class LoginController{
 	//This method is called whenever the log in button is clicked
 	@FXML
 	public void handleLoginButton(ActionEvent event) throws IOException{
+		//Login verification
 		switch(portalComboBox.getValue()) {
-		case "Patient":
-			sendToPatientPortal();
-			break;
-		case "Nurse":
-			sendToNursePortal();
-			break;
-		case "Doctor":
-			sendToDoctorPortal();
-			break;
-		}
+			case "Patient":
+				sendToPatientPortal();
+				break;
+			case "Nurse":
+				sendToNursePortal();
+				break;
+			case "Doctor":
+				sendToDoctorPortal();
+				break;
+			}
 		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	}
 	
@@ -67,6 +79,8 @@ public class LoginController{
 		
 		NurseController nurseController = loader.getController();
 		nurseController.setMain(this.main);
+		nurseController.setLists(PatientList, NurseList, DoctorList);
+		
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Nurse Portal");
@@ -81,6 +95,8 @@ public class LoginController{
 		
 		patientController patientController = loader.getController();
 		patientController.setMain(this.main);
+		patientController.setLists(PatientList, NurseList, DoctorList);
+		
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Patient Portal");
@@ -95,6 +111,8 @@ public class LoginController{
 		
 		doctorController doctorController = loader.getController();
 		doctorController.setMain(this.main);
+		doctorController.setLists(PatientList, NurseList, DoctorList);
+		
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Doctor Portal");
