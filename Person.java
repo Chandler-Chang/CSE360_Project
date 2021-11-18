@@ -1,3 +1,5 @@
+package application;
+
 public class Person {
 	// Each person has first/last name, user name and password
 	protected String firstName, lastName;
@@ -46,7 +48,7 @@ public class Person {
 	public String getLast() { return this.lastName; }
 
 	// Returns Person's user name
-	public String getUserName() { return this.username; }
+	public String getUsername() { return this.username; }
 
 	// Returns Person's password
 	public String getPassword() { return this.password; }

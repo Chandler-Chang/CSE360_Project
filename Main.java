@@ -246,7 +246,6 @@ public class Main extends Application {
 			Scanner read = new Scanner(file);
 			int i = 0;	//INDICATOR FOR PATIENT AND DOCTOR
 			while(read.hasNextLine()){
-				
 				String fName = read.nextLine();
 				String lName = read.nextLine();
 				String uName = read.nextLine();
@@ -288,33 +287,23 @@ public class Main extends Application {
 	
 	}
     
-    public String writeDoctorData(Doctor[] allDoctors) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
+   public String writeDoctorData(ArrayList<Doctor> DoctorList) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
+	   File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\doctorData.txt");
 		try {
-			PrintStream outFile = new PrintStream(new File("doctorData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allDoctors[i].getFirst());
-				outFile.println(allDoctors[i].getLast());
-				outFile.println(allDoctors[i].getUsername());
-				outFile.println(allDoctors[i].getPassword());
-				outFile.println(allDoctors[i].getID());
-				ArrayList<Integer> nursesAssigned = new ArrayList<>(10);
-				nursesAssigned = allDoctors[i].getAssignedNurses();
-				for(int j = 0; j < nursesAssigned.size(); j++) {
-					outFile.print(nursesAssigned.get(j));
-				}
-				outFile.println();
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < DoctorList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(DoctorList.get(i).getFirst());
+				outFile.println(DoctorList.get(i).getLast());
+				outFile.println(DoctorList.get(i).getUsername());
+				outFile.println(DoctorList.get(i).getPassword());
+				outFile.println(DoctorList.get(i).getID());
 				
-				ArrayList<Integer> patientsAssigned = new ArrayList<>(10);
-				patientsAssigned = allDoctors[i].getAssignedPatients();
-				for(int j = 0; j < patientsAssigned.size(); j++) {
-					outFile.print(patientsAssigned.get(j));
-				}
-				outFile.println();
+				
 			}
 			outFile.close();
-			return("File written successfully");
+			return("File written succesfully");
 		} catch (FileNotFoundException e) {
-			return("Error: Unable to open Doctor file for writing");
+			return("Error: Unable to open file for writing");
 		}
 	
 	}
