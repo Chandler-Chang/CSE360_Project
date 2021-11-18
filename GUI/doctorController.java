@@ -77,24 +77,38 @@ public class doctorController {
 	
 	//Physical Test Tab
 	@FXML
+	private TextField physicalDateBox;
+	@FXML
 	private CheckBox functioningCBox, unresponsiveCBox;
 	@FXML
 	private TextArea earNoseArea, breathingArea, notesArea;
 	
 	//Make Prescription Tab
 	@FXML
-	private TextField prescriptionArea, dosageArea, patientName, patientBirth, pharmasyAddress;
+	private TextField prescriptionArea, dosageArea, prescriptionDate, pharmacyAddress;
 	@FXML
 	private TextArea InstructionsArea;
 	
 	//Main Tab
-	@FXML
-	private ListView<String> patientList; //IDK if its a listview of strings or patients, you may try to change.
+	//@FXML
+	//private ListView<String> patientList; //IDK if its a listview of strings or patients, you may try to change.
 	@FXML
 	private Button submitBttn, searchPatientBttn, addRemovePatient;
 	@FXML
 	public void handleSubmit(ActionEvent event) {
-		
+		if (patient == null) {
+			clearPhysicalTab();
+			clearPrescriptionTab();
+			System.out.println("No patient connected to this operation.");
+		}
+		if (!notesArea.getText().trim().isEmpty()) {
+			patient.addSummary(physicalDateBox.getText(), notesArea.getText());
+			clearPhysicalTab();
+		}
+		else if (!prescriptionArea.getText().trim().isEmpty()) {
+			patient.addSummary(prescriptionDate.getText(), prescriptionArea.getText() + " " + dosageArea.getText() + "mg");
+			clearPrescriptionTab();
+		}
 	}
 	@FXML
 	public void handleAddRemove(ActionEvent event) throws IOException{
@@ -122,5 +136,22 @@ public class doctorController {
 		stage.show();
 		searchController.setLists(PatientList, NurseList, DoctorList);
 		searchController.setDoctor(doctor);
+	}
+	
+	public void clearPhysicalTab() {
+		physicalDateBox.clear();
+		functioningCBox.setSelected(false);
+		unresponsiveCBox.setSelected(false);
+		earNoseArea.clear();
+		breathingArea.clear();
+		notesArea.clear();
+	}
+	
+	public void clearPrescriptionTab() {
+		prescriptionArea.clear();
+		dosageArea.clear();
+		prescriptionDate.clear();
+		pharmacyAddress.clear();
+		InstructionsArea.clear();
 	}
 }

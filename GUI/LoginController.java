@@ -3,6 +3,7 @@ package application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -70,6 +71,7 @@ public class LoginController{
 					}
 				}
 				System.out.println("Incorrect login"); //needs to not close the app
+				showErrorMessage();
 				break;
 			case "Nurse":
 				for (int i = 0; i < NurseList.size(); i++) {
@@ -81,6 +83,7 @@ public class LoginController{
 					}
 				}
 				System.out.println("Incorrect login");
+				showErrorMessage();
 				break;
 			case "Doctor":
 				for (int i = 0; i < DoctorList.size(); i++) {
@@ -92,6 +95,7 @@ public class LoginController{
 					}
 				}
 				System.out.println("Incorrect login");
+				showErrorMessage();
 				break;
 			}
 	}
@@ -145,5 +149,12 @@ public class LoginController{
 		stage.setTitle("Doctor Portal");
 		stage.show();
 		//doctorController.setData();
+	}
+	
+	public void showErrorMessage() {
+		Alert errorAlert = new Alert(AlertType.ERROR);
+		errorAlert.setHeaderText("Invalid login");
+		errorAlert.setContentText("You entered an incorrect username and/or password.");
+		errorAlert.showAndWait();
 	}
 }

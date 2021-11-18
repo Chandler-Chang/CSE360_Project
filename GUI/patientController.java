@@ -37,7 +37,7 @@ public class patientController {
 		insuranceProvider.setText("Insurance Provider: Bikini Bottom Insurance");
 		planNumber.setText("Plan Number: 21-12390");
 		planExpirationDate.setText("Plan Expiration Date: 12/31/2026");
-		patientInfoArea.setText("Date of Birth: " + patient.getBirthdate() + "\n\n" + "Gender: None of ya biz" + "\n\n" + "Address: TBD" + "\n\n" + "Phone Number: 123-456-7890");	
+		patientInfoArea.setText("Date of Birth: " + patient.getBirthdate() + "\n\n" + "Gender: " + patient.getGender() + "\n\n" + "Address: TBD" + "\n\n" + "Phone Number: 123-456-7890" + "\n\n" + "Allergies: " + patient.getAllergies());	
 		pharmacyInformationBox.setText("Pharmacy: " + patient.getPharmacy() + "\n\n" + "Pharmacy Address: " + patient.getPharmacyAddress());
 		
 		PatientNode patientSummary = patient.getSummary();
@@ -73,7 +73,7 @@ public class patientController {
 	
 	//Appointment History Tab
 	@FXML
-	private TextArea previousArea, upcomingArea, summaryArea;
+	private TextArea summaryArea;
 	
 	//Ask the Doctor
 }

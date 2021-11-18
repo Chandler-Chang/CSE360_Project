@@ -40,7 +40,7 @@ public class patientSearchController {
 		}
 		
 		@FXML
-		private DatePicker birthdateBox;
+		private TextField birthdateBox;
 		@FXML
 		private Button searchButton, backButton;
 		@FXML
@@ -55,11 +55,9 @@ public class patientSearchController {
 		//When search button is clicked
 		@FXML
 		public void handleSearch(ActionEvent event) throws IOException {
-			String date = birthdateBox.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-			System.out.println(date);
 			for (int i = 0; i < PatientList.size(); i++) {
 				Patient patient = PatientList.get(i);
-				if (patient.getFirst().equals(firstNameBox.getText()) && patient.getLast().equals(lastNameBox.getText()) && patient.getBirthdate().equals(date)) {
+				if (patient.getFirst().equals(firstNameBox.getText()) && patient.getLast().equals(lastNameBox.getText()) && patient.getBirthdate().equals(birthdateBox.getText())) {
 					if (nurse == null) {
 						backToDoctorPortal(patient);
 						((Stage)(((Button)event.getSource()).getScene().getWindow())).close(); //close the search window

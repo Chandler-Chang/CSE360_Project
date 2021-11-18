@@ -23,7 +23,7 @@ public class addRemoveController {
 				);
 	}
 	@FXML
-	private DatePicker birthdateField;
+	private TextField birthdateField;
 	@FXML
 	private Button backButton, submitButton;
 	@FXML
