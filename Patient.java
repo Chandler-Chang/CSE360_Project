@@ -17,8 +17,6 @@ public class Patient extends Person{
 	private int weight = 150;
 	
 	//private MessageNode messageHead;
-		
-	//protected Patient[] allPatients = new Patient[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	// Default Patient Constructor
 	public Patient() {}
@@ -72,9 +70,14 @@ public class Patient extends Person{
 	
 	// Adds new prescription for the patient
 	public void addPrescription(String date, String prescription) {
-		prescriptionHead = (prescriptionHead == null) ?
-			new PatientNode(date, prescription, null) :
-			new PatientNode(date, prescription, summaryHead);
+		if (prescriptionHead == null) {
+			PatientNode prescriptionNode = new PatientNode(date, prescription, null);
+			prescriptionHead = prescriptionNode;
+		}
+		else {
+			PatientNode prescriptionNode = new PatientNode(date, prescription, prescriptionHead);
+			prescriptionHead = prescriptionNode;
+		}
 	}
 	
 	// Adds new immunization for the patient
