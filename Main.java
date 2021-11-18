@@ -108,16 +108,25 @@ public class Main extends Application {
 		    	}
 		    	String[] allSummaries = summary.split("\\|");
 		    	for(int i = 0; i < allSummaries.length; i++) {
+		    		if(allSummaries[i].equals("none")) {
+			    		break;
+			    	}
 		    		data.addSummary(allSummaries[i], allSummaries[i+1]);
 		    		i++;
 		    	}
 		    	String[] allImmunizations = immunization.split("\\|");
 		    	for(int i = 0; i < allImmunizations.length; i++) {
+		    		if(allImmunizations[i].equals("none")) {
+			    		break;
+			    	}
 		    		data.addImmunization(allImmunizations[i], allImmunizations[i+1]);
 		    		i++;
 		    	}
 		    	String[] allPrescriptions = prescription.split("\\|");
 		    	for(int i = 0; i < allPrescriptions.length; i++) {
+		    		if(allPrescriptions[i].equals("none")) {
+			    		break;
+			    	}
 		    		data.addPrescription(allPrescriptions[i], allPrescriptions[i+1]);
 		    		i++;
 		    	}
@@ -168,29 +177,44 @@ public class Main extends Application {
 		    	
 		    	String summaries = "";
 		    	PatientNode summaryNode = PatientList.get(i).getSummary();
-		    	do{
-		    		summaries += summaryNode.getDate() + "|";
-		    		summaries += summaryNode.getInfo() + "|";
-		    		summaryNode = summaryNode.getNext();
-		    	}while(summaryNode.getNext() != null);
+		    	if(summaryNode == null) {
+		    		summaries += "none" + "|";
+		    	}
+		    	else {
+		    		while(summaryNode.getNext() != null){
+		    			summaries += summaryNode.getDate() + "|";
+		    			summaries += summaryNode.getInfo() + "|";
+		    			summaryNode = summaryNode.getNext();
+		    		}
+		    	}
 		    	outFile.println(summaries);
 		    	
 		    	String immunizations = "";
 		    	PatientNode immunizationNode = PatientList.get(i).getImmunization();
-		    	do{
-		    		immunizations += immunizationNode.getDate() + "|";
-		    		immunizations += immunizationNode.getInfo() + "|";
-		    		immunizationNode = immunizationNode.getNext();
-		    	}while(immunizationNode.getNext() != null);
+		    	if(immunizationNode == null) {
+		    		immunizations += "none" + "|";
+		    	}
+		    	else {
+		    		while(immunizationNode.getNext() != null){
+		    			immunizations += immunizationNode.getDate() + "|";
+		    			immunizations += immunizationNode.getInfo() + "|";
+		    			immunizationNode = immunizationNode.getNext();
+		    		}
+		    	}
 		    	outFile.println(immunizations);
 		    	
 		    	String prescriptions = "";
 		    	PatientNode precriptionNode = PatientList.get(i).getPrescription();
-		    	do{
-		    		prescriptions += precriptionNode.getDate() + "|";
-		    		prescriptions += precriptionNode.getInfo() + "|";
-		    		precriptionNode = precriptionNode.getNext();
-		    	}while(precriptionNode.getNext() != null);
+		    	if(precriptionNode == null) {
+		    		prescriptions += "none" + "|";
+		    	}
+		    	else {
+		    		while(precriptionNode.getNext() != null){
+		    			prescriptions += precriptionNode.getDate() + "|";
+		    			prescriptions += precriptionNode.getInfo() + "|";
+		    			precriptionNode = precriptionNode.getNext();
+		    		}
+		    	}
 		    	outFile.println(prescriptions);
 			}
 			outFile.close();
