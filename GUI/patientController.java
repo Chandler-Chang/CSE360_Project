@@ -94,6 +94,7 @@ public class patientController {
         stage.setTitle("Office Aumation System (OAS)");
         stage.show();
         loginController.setData();
+        loginController.setLists(PatientList, NurseList, DoctorList);
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
 	

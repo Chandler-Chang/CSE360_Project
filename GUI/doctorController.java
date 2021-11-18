@@ -85,9 +85,9 @@ public class doctorController {
 	
 	//Make Prescription Tab
 	@FXML
-	private TextField prescriptionArea, dosageArea, prescriptionDate, pharmacyAddress;
+	private TextField dosageArea, prescriptionDate, prescriptionField, pharmacyAddress;
 	@FXML
-	private TextArea InstructionsArea;
+	private TextArea InstructionsArea, prescriptionArea;
 	
 	//Main Tab
 	//@FXML
@@ -105,8 +105,8 @@ public class doctorController {
 			patient.addSummary(physicalDateBox.getText(), notesArea.getText());
 			clearPhysicalTab();
 		}
-		else if (!prescriptionArea.getText().trim().isEmpty()) {
-			patient.addSummary(prescriptionDate.getText(), prescriptionArea.getText() + " " + dosageArea.getText() + "mg");
+		else if (!prescriptionField.getText().trim().isEmpty()) {
+			patient.addSummary(prescriptionDate.getText(), prescriptionField.getText() + " " + dosageArea.getText() + "mg");
 			clearPrescriptionTab();
 		}
 	}
@@ -154,6 +154,7 @@ public class doctorController {
         stage.setTitle("Office Aumation System (OAS)");
         stage.show();
         loginController.setData();
+        loginController.setLists(PatientList, NurseList, DoctorList);
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
     

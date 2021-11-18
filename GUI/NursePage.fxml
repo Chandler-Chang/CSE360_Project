@@ -10,20 +10,27 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NurseController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NurseController">
    <children>
-      <TabPane layoutX="178.0" layoutY="30.0" prefHeight="349.0" prefWidth="448.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="178.0" layoutY="30.0" prefHeight="570.0" prefWidth="656.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Patient's Info">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="540.0">
                      <children>
-                        <TextArea fx:id="patientsInfoArea" layoutX="14.0" layoutY="14.0" prefHeight="144.0" prefWidth="421.0" text="Name:&#10;Gender:&#10;DOB:&#10;&#10;Height:&#10;Weight:&#10;Allergies:&#10;&#10;Patient's Pharmacy Name:&#10;Pharmacy Address:&#10;Pharmacy Phone Number:" />
-                        <TextArea fx:id="ImmRecordsArea" layoutX="14.0" layoutY="193.0" prefHeight="124.0" prefWidth="210.0" />
-                        <Label layoutX="14.0" layoutY="169.0" text="Immuniation Records" />
-                        <Label layoutX="238.0" layoutY="169.0" text="Appointment History" />
-                        <TextArea fx:id="AppHistoryArea" layoutX="238.0" layoutY="193.0" prefHeight="124.0" prefWidth="200.0" />
+                        <TextArea fx:id="patientsInfoArea" layoutX="14.0" layoutY="14.0" prefHeight="195.0" prefWidth="602.0" text="Name:&#10;Gender:&#10;DOB:&#10;&#10;Height:&#10;Weight:&#10;Allergies:&#10;&#10;Patient's Pharmacy Name:&#10;Pharmacy Address:&#10;Pharmacy Phone Number:" />
+                        <Label layoutX="14.0" layoutY="216.0" text="Immuniation Records" />
+                        <Label layoutX="315.0" layoutY="216.0" text="Appointment History" />
+                        <TextArea fx:id="ImmRecordsArea" layoutX="14.0" layoutY="233.0" prefHeight="120.0" prefWidth="290.0" />
+                        <TextArea fx:id="AppHistoryArea" layoutX="315.0" layoutY="233.0" prefHeight="268.0" prefWidth="302.0" />
+                        <Label layoutX="20.0" layoutY="360.0" prefHeight="19.0" prefWidth="86.0" text="Prescriptions">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="prescriptionArea" layoutX="14.0" layoutY="380.0" prefHeight="120.0" prefWidth="290.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -48,15 +55,16 @@
                         <Label layoutX="210.0" layoutY="53.0" text="ft" />
                         <Label layoutX="288.0" layoutY="53.0" text="in" />
                         <Label layoutX="320.0" layoutY="88.0" text="lbs" />
-                        <Label layoutX="314.0" layoutY="115.0" text="Â°F" />
+                        <Label layoutX="314.0" layoutY="115.0" text="°F" />
                      </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="submitButton" layoutX="555.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="73.0" text="Submit" />
-      <Button fx:id="editButton" layoutX="481.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="25.0" prefWidth="66.0" text="Edit" />
-      <ListView fx:id="patientList" layoutX="14.0" layoutY="86.0" prefHeight="293.0" prefWidth="139.0" />
+      <Button fx:id="submitButton" layoutX="762.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="73.0" text="Submit" />
+      <Button fx:id="editButton" layoutX="688.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="25.0" prefWidth="66.0" text="Edit" />
+      <ListView fx:id="patientList" layoutX="25.0" layoutY="86.0" prefHeight="503.0" prefWidth="139.0" />
       <Button fx:id="searchPatientButton" layoutX="44.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleSeachPatient" prefHeight="25.0" prefWidth="106.0" text="Search Patient" />
+      <Button fx:id="signoutButton" layoutX="25.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleSignout" prefHeight="25.0" prefWidth="99.0" text="Sing-Out" />
    </children>
 </AnchorPane>
