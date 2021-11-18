@@ -138,22 +138,45 @@ public class Main extends Application {
 	
 	
     
-    public String writePatientData(Patient[] allPatients) {		//NEW: WRITE PATIENT FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST PatientList
+    public String writePatientData(ArrayList<Patient> PatientList) {		
+    	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\patientData.txt");
 		try {
-			PrintStream outFile = new PrintStream(new File("patientData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allPatients[i].getFirst());
-				outFile.println(allPatients[i].getLast());
-				outFile.println(allPatients[i].getUsername());
-				outFile.println(allPatients[i].getPassword());
-				outFile.println(allPatients[i].getID());
-				outFile.println(allPatients[i].getDoc());
-				outFile.println(allPatients[i].getBirthdate());
-				outFile.println(allPatients[i].getPharmacy());
-				outFile.println(allPatients[i].getPharmacyAddress());
-				outFile.println(allPatients[i].getInsurance());
-				outFile.println(allPatients[i].getAllergies());
-				outFile.println();
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < PatientList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(PatientList.get(i).getFirst());
+				outFile.println(PatientList.get(i).getLast());
+				outFile.println(PatientList.get(i).getUsername());
+				outFile.println(PatientList.get(i).getPassword());
+				outFile.println(PatientList.get(i).getID());
+				//outFile.println(allPatients[i].getDoc());
+				outFile.println(PatientList.get(i).getBirthdate());
+				outFile.println(PatientList.get(i).getPharmacy());
+				outFile.println(PatientList.get(i).getPharmacyAddress());
+				//outFile.println(allPatients[i].getInsurance());
+				String allergies = PatientList.get(i).getAllergies();
+				String[] allAllergies = allergies.split(", ");
+				String allergyFormat = "";
+		    	for(int j = 0; j < allAllergies.length; j++) {
+		    		allergyFormat = allergyFormat + allAllergies[j] + "|";
+		    	}
+		    	outFile.println(allergyFormat);
+		    	String summaries = "";
+		    	PatientNode summaryNode = PatientList.get(i).getSummary();
+		    	do{
+		    		summaries += summaryNode.getDate() + "|";
+		    		summaries += summaryNode.getInfo() + "|";
+		    		summaryNode = summaryNode.getNext();
+		    	}while(summaryNode.getNext() != null);
+		    	outFile.println(summaries);
+		    	String immunizations = "";
+		    	PatientNode immunizationNode = PatientList.get(i).getImmunization();
+		    	do{
+		    		immunizations += immunizationNode.getDate() + "|";
+		    		immunizations += immunizationNode.getInfo() + "|";
+		    		immunizationNode = immunizationNode.getNext();
+		    	}while(immunizationNode.getNext() != null);
+		    	outFile.println(immunizations);
+				
 			}
 			outFile.close();
 			return("File written succesfully");
