@@ -135,8 +135,6 @@ public class Main extends Application {
 		}
 	
 	}
-	
-	
     
     public String writePatientData(ArrayList<Patient> PatientList) {		
     	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\patientData.txt");
@@ -220,17 +218,18 @@ public class Main extends Application {
 	
 	}
     
-    public String writeNurseData(Nurse[] allNurses) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
+    public String writeNurseData(ArrayList<Nurse> NurseList) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
+    	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\nurseData.txt");
 		try {
-			PrintStream outFile = new PrintStream(new File("nurseData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allNurses[i].getFirst());
-				outFile.println(allNurses[i].getLast());
-				outFile.println(allNurses[i].getUsername());
-				outFile.println(allNurses[i].getPassword());
-				outFile.println(allNurses[i].getID());
-				outFile.println(allNurses[i].getDoc());
-				outFile.println();
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < NurseList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(NurseList.get(i).getFirst());
+				outFile.println(NurseList.get(i).getLast());
+				outFile.println(NurseList.get(i).getUsername());
+				outFile.println(NurseList.get(i).getPassword());
+				outFile.println(NurseList.get(i).getID());
+				
+				
 			}
 			outFile.close();
 			return("File written succesfully");
@@ -245,7 +244,7 @@ public class Main extends Application {
 		try {
 			
 			Scanner read = new Scanner(file);
-			
+			int i = 0;	//INDICATOR FOR PATIENT AND DOCTOR
 			while(read.hasNextLine()){
 				
 				String fName = read.nextLine();
@@ -274,7 +273,10 @@ public class Main extends Application {
 					b = a * b;
 				}*/
 				DoctorList.add(data);	//NEW: add this doctor to the ArrayList.
-				
+				data.addPatient(PatientList.get(i).getID());
+		    	data.addNurse(NurseList.get(i).getID());
+		    	NurseList.get(i).setDoctor(data.getID());
+		    	i++;
 			}
 			
 			read.close();
