@@ -7,6 +7,8 @@ gary
 Krusty Krab
 123 Shell Lane
 Peanuts
+12/11/2022|Ingrown toenail, scheduled for surgery on 01/03/2021.|01/01/2022|Got too drunk on New Years
+02/14/2019|Tetanus|03/17/2020|Moderna COVID-19
 Patrick
 Star
 pstar
@@ -15,4 +17,6 @@ patricia
 07/24/1990
 Chum Bucket
 104 Shell Lane
-Krabby Patties
+Krabby Patties|Jellyfish
+12/11/2022|Ingrown toenail, scheduled for surgery on 01/03/2021.|01/01/2022|Got too drunk on New Years
+02/14/2019|Tetanus|03/17/2020|Moderna COVID-19

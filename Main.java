@@ -75,7 +75,7 @@ public class Main extends Application {
     }
     
 
-	public String readPatientData() {	//NEW: READ PATIENT FILE
+    public String readPatientData() {	//NEW: READ PATIENT FILE
 		File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\patientData.txt");		
 		try {
 			
@@ -93,12 +93,28 @@ public class Main extends Application {
 				String pharmacy = read.nextLine();
 				String pharmAddr = read.nextLine();
 				String allergy = read.nextLine();
+				String summary = read.nextLine();
+				String immunization = read.nextLine();
 				
 				Patient data = new Patient(fName, lName, uName, passwd, ID);
 				data.setBirthdate(birthdate);
 		    	data.setPharmacy(pharmacy);
 		    	data.setPharmacyAddress(pharmAddr);
-		    	data.addAllergies(allergy);
+		    	String[] allAllergies = allergy.split("\\|");
+		    	for(int i = 0; i < allAllergies.length; i++) {
+		    		data.addAllergies(allAllergies[i]);
+		    	}
+		    	String[] allSummaries = summary.split("\\|");
+		    	for(int i = 0; i < allSummaries.length; i++) {
+		    		data.addSummary(allSummaries[i], allSummaries[i+1]);
+		    		i++;
+		    	}
+		    	String[] allImmunizations = immunization.split("\\|");
+		    	for(int i = 0; i < allImmunizations.length; i++) {
+		    		data.addSummary(allImmunizations[i], allImmunizations[i+1]);
+		    		i++;
+		    	}
+		    	
 				/*int assignedDoc = read.nextInt();  Was before Patient data = yadayadayada
 				
 				data.setDoctor(assignedDoc);
@@ -119,6 +135,8 @@ public class Main extends Application {
 		}
 	
 	}
+	
+	
     
     public String writePatientData(Patient[] allPatients) {		//NEW: WRITE PATIENT FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST PatientList
 		try {
@@ -233,6 +251,7 @@ public class Main extends Application {
 					b = a * b;
 				}*/
 				DoctorList.add(data);	//NEW: add this doctor to the ArrayList.
+				
 			}
 			
 			read.close();
@@ -277,13 +296,17 @@ public class Main extends Application {
     
     public void generatePatients() {
     	readPatientData();
-    	
     	/*Patient patient = new Patient("Spongebob", "Squarepants", "ssquarepants", "gary", 1000);
     	PatientList.add(patient);
     	patient.setBirthdate("04/14/1992");
     	patient.setPharmacy("Krusty Krab");
     	patient.setPharmacyAddress("123 Shell Lane");
     	patient.addAllergies("Peanuts");
+    	patient.addSummary("12/11/2022", "Ingrown toenail, scheduled for surgery on 01/03/2021.");
+    	patient.addSummary("01/01/2022", "Got too drunk on New Years");
+    	patient.addImmunization("02/14/2019", "Tetanus");
+    	patient.addImmunization("03/17/2020", "Moderna COVID-19");
+    	
     	
     	Patient patient2 = new Patient("Patrick", "Star", "pstar", "patricia", 1001);
     	patient2.setBirthdate("07/24/1990");
@@ -291,11 +314,14 @@ public class Main extends Application {
     	patient2.setPharmacyAddress("104 Shell Lane");
     	patient2.addAllergies("Krabby Patties");
     	patient2.addAllergies("Jellyfish");
+    	patient2.addSummary("12/11/2022", "Ingrown toenail, scheduled for surgery on 01/03/2021.");
+    	patient2.addSummary("01/01/2022", "Got too drunk on New Years");
+    	patient2.addImmunization("02/14/2019", "Tetanus");
+    	patient2.addImmunization("03/17/2020", "Moderna COVID-19");
     	PatientList.add(patient2);*/
     }
     
     public void generateNurses() {
-    	
     	readNurseData();
     	/*Nurse nurse = new Nurse("James", "Morgan", "jmorgan", "weezing", 2000);
     	NurseList.add(nurse);
@@ -306,7 +332,6 @@ public class Main extends Application {
 
     public void generateDoctors() {
     	readDoctorData();
-    	
     	/*Doctor doctor = new Doctor("James", "Sullivan", "jsullivan", "boo", 3000);
     	DoctorList.add(doctor);
     	doctor.addPatient(PatientList.get(0).getID());
