@@ -21,6 +21,23 @@ public class NurseController {
 	public void setData() {
 		
 	}
+	//main tab
+	@FXML
+	private Button submitBttn, searchPatientBttn, addRemovePatient, signoutButton;
+	@FXML
+	public void handleSignout(ActionEvent event) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+		Parent root = loader.load();
+		
+		LoginController loginController = loader.getController();
+		loginController.setMain(this.main);
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Office Aumation System (OAS)");
+		stage.show();
+		loginController.setData();
+		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+	}
 	//Patient's Info Tab
 	@FXML
 	private TextArea patientsInfoArea, ImmRecordsArea, AppHistoryArea;

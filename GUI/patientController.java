@@ -1,8 +1,13 @@
 package application;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 
@@ -16,6 +21,23 @@ public class patientController {
 	
 	public void setData() {
 		
+	}
+	//Main tab
+	@FXML
+	private Button submitBttn, searchPatientBttn, addRemovePatient, signoutButton;
+	@FXML
+	public void handleSignout(ActionEvent event) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+		Parent root = loader.load();
+		
+		LoginController loginController = loader.getController();
+		loginController.setMain(this.main);
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Office Aumation System (OAS)");
+		stage.show();
+		loginController.setData();
+		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	}
 	//Medical Information Tab
 	@FXML
@@ -43,7 +65,7 @@ public class patientController {
 	
 	//Appointment History Tab
 	@FXML
-	private TextArea previousArea, upcomingArea, summaryArea;
+	private TextArea summaryArea;
 	
 	//Ask the Doctor
 }

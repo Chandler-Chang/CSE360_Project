@@ -36,10 +36,12 @@ public class doctorController {
 	private CheckBox functioningCBox, unresponsiveCBox;
 	@FXML
 	private TextArea earNoseArea, breathingArea, notesArea;
+	@FXML
+	private TextField physicalDateBox;
 	
 	//Make Prescription Tab
 	@FXML
-	private TextField prescriptionArea, dosageArea, patientName, patientBirth, pharmasyAddress;
+	private TextField prescriptionArea, dosageArea, patientName, patientBirth, pharmasyAddress, prescriptionDate, pharmacyAddress;
 	@FXML
 	private TextArea InstructionsArea;
 	
@@ -47,7 +49,21 @@ public class doctorController {
 	@FXML
 	private ListView<String> patientList; //IDK if its a listview of strings or patients, you may try to change.
 	@FXML
-	private Button submitBttn, searchPatientBttn, addRemovePatient;
+	private Button submitBttn, searchPatientBttn, addRemovePatient, signoutButton;
+	@FXML
+	public void handleSignout(ActionEvent event) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+		Parent root = loader.load();
+		
+		LoginController loginController = loader.getController();
+		loginController.setMain(this.main);
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Office Aumation System (OAS)");
+		stage.show();
+		loginController.setData();
+		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+	}
 	@FXML
 	public void handleSubmit(ActionEvent event) {
 		
