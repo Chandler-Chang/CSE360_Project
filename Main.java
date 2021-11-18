@@ -95,6 +95,8 @@ public class Main extends Application {
 				String allergy = read.nextLine();
 				String summary = read.nextLine();
 				String immunization = read.nextLine();
+				String prescription = read.nextLine();
+				
 				
 				Patient data = new Patient(fName, lName, uName, passwd, ID);
 				data.setBirthdate(birthdate);
@@ -111,7 +113,12 @@ public class Main extends Application {
 		    	}
 		    	String[] allImmunizations = immunization.split("\\|");
 		    	for(int i = 0; i < allImmunizations.length; i++) {
-		    		data.addSummary(allImmunizations[i], allImmunizations[i+1]);
+		    		data.addImmunization(allImmunizations[i], allImmunizations[i+1]);
+		    		i++;
+		    	}
+		    	String[] allPrescriptions = prescription.split("\\|");
+		    	for(int i = 0; i < allPrescriptions.length; i++) {
+		    		data.addPrescription(allPrescriptions[i], allPrescriptions[i+1]);
 		    		i++;
 		    	}
 		    	
@@ -158,6 +165,7 @@ public class Main extends Application {
 		    		allergyFormat = allergyFormat + allAllergies[j] + "|";
 		    	}
 		    	outFile.println(allergyFormat);
+		    	
 		    	String summaries = "";
 		    	PatientNode summaryNode = PatientList.get(i).getSummary();
 		    	do{
@@ -166,6 +174,7 @@ public class Main extends Application {
 		    		summaryNode = summaryNode.getNext();
 		    	}while(summaryNode.getNext() != null);
 		    	outFile.println(summaries);
+		    	
 		    	String immunizations = "";
 		    	PatientNode immunizationNode = PatientList.get(i).getImmunization();
 		    	do{
@@ -174,7 +183,15 @@ public class Main extends Application {
 		    		immunizationNode = immunizationNode.getNext();
 		    	}while(immunizationNode.getNext() != null);
 		    	outFile.println(immunizations);
-				
+		    	
+		    	String prescriptions = "";
+		    	PatientNode precriptionNode = PatientList.get(i).getPrescription();
+		    	do{
+		    		prescriptions += precriptionNode.getDate() + "|";
+		    		prescriptions += precriptionNode.getInfo() + "|";
+		    		precriptionNode = precriptionNode.getNext();
+		    	}while(precriptionNode.getNext() != null);
+		    	outFile.println(prescriptions);
 			}
 			outFile.close();
 			return("File written succesfully");
