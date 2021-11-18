@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -77,7 +80,7 @@ public class doctorController {
 	@FXML
 	private TextArea patientInfoArea, immunizationArea, appHistoryArea;
 	@FXML
-	public void handlePullVitals(ActionEvent event) {
+	public void handlePullVitals(ActionEvent event) throws IOException {
 		
 	}
 	
@@ -165,6 +168,11 @@ public class doctorController {
         stage.show();
         loginController.setData();
         loginController.setLists(PatientList, NurseList, DoctorList);
+        
+        writePatientData(PatientList);
+        writeNurseData(NurseList);
+        writeDoctorData(DoctorList);
+        
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
     
@@ -172,6 +180,7 @@ public class doctorController {
     	patientInfoArea.clear();
     	appHistoryArea.clear();
     	immunizationArea.clear();
+    	prescriptionArea.clear();
     }
     
 	public void clearPhysicalTab() {
@@ -189,5 +198,133 @@ public class doctorController {
 		prescriptionDate.clear();
 		pharmacyAddress.clear();
 		InstructionsArea.clear();
+	}
+	
+	public String writePatientData(ArrayList<Patient> PatientList) {		
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\patientData.txt");
+		try {
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < PatientList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(PatientList.get(i).getFirst());
+				outFile.println(PatientList.get(i).getLast());
+				outFile.println(PatientList.get(i).getUsername());
+				outFile.println(PatientList.get(i).getPassword());
+				outFile.println(PatientList.get(i).getID());
+				//outFile.println(allPatients[i].getDoc());
+				outFile.println(PatientList.get(i).getBirthdate());
+				outFile.println(PatientList.get(i).getPharmacy());
+				outFile.println(PatientList.get(i).getPharmacyAddress());
+				//outFile.println(allPatients[i].getInsurance());
+				String allergies = PatientList.get(i).getAllergies();
+				String[] allAllergies = allergies.split(", ");
+				String allergyFormat = "";
+		    	for(int j = 0; j < allAllergies.length; j++) {
+		    		allergyFormat = allergyFormat + allAllergies[j] + "|";
+		    	}
+		    	outFile.println(allergyFormat);
+		    	
+		    	String summaries = "";
+		    	PatientNode summaryNode = PatientList.get(i).getSummary();
+		    	if(summaryNode == null) {
+		    		summaries += "none" + "|";
+		    	}
+		    	else {
+		    		do {
+		    			summaries += summaryNode.getDate() + "|";
+		    			summaries += summaryNode.getInfo() + "|";
+		    			summaryNode = summaryNode.getNext();
+		    		} while(summaryNode != null);
+		    	}
+		    	outFile.println(summaries);
+		    	
+		    	String immunizations = "";
+		    	PatientNode immunizationNode = PatientList.get(i).getImmunization();
+		    	if(immunizationNode == null) {
+		    		immunizations += "none" + "|";
+		    	}
+		    	else {
+		    		do {
+		    			immunizations += immunizationNode.getDate() + "|";
+		    			immunizations += immunizationNode.getInfo() + "|";
+		    			immunizationNode = immunizationNode.getNext();
+		    		} while(immunizationNode != null);
+		    	}
+		    	outFile.println(immunizations);
+		    	
+		    	String prescriptions = "";
+		    	PatientNode precriptionNode = PatientList.get(i).getPrescription();
+		    	if(precriptionNode == null) {
+		    		prescriptions += "none" + "|";
+		    	}
+		    	else {
+		    		do {
+		    			prescriptions += precriptionNode.getDate() + "|";
+		    			prescriptions += precriptionNode.getInfo() + "|";
+		    			precriptionNode = precriptionNode.getNext();
+		    		} while(precriptionNode != null);
+		    	}
+		    	if (i + 1 == PatientList.size()) {
+		    		outFile.print(prescriptions);
+		    	}
+		    	else {
+		    		outFile.println(prescriptions);
+		    	}
+			}
+			outFile.close();
+			return("File written succesfully");
+		} catch (FileNotFoundException e) {
+			return("Error: Unable to open file for writing");
+		}
+	
+	}
+	
+	public String writeNurseData(ArrayList<Nurse> NurseList) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\nurseData.txt");
+		try {
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < NurseList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(NurseList.get(i).getFirst());
+				outFile.println(NurseList.get(i).getLast());
+				outFile.println(NurseList.get(i).getUsername());
+				outFile.println(NurseList.get(i).getPassword());
+				
+				if (i + 1 == NurseList.size()) {
+					outFile.print(NurseList.get(i).getID());
+				}
+				else {
+					outFile.println(NurseList.get(i).getID());
+				}
+			}
+			outFile.close();
+			return("File written succesfully");
+		} catch (FileNotFoundException e) {
+			return("Error: Unable to open file for writing");
+		}
+	
+	}
+	
+	public String writeDoctorData(ArrayList<Doctor> DoctorList) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
+		   File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\doctorData.txt");
+			try {
+				PrintStream outFile = new PrintStream(file);
+				for(int i = 0; i < DoctorList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+					outFile.println(DoctorList.get(i).getFirst());
+					outFile.println(DoctorList.get(i).getLast());
+					outFile.println(DoctorList.get(i).getUsername());
+					outFile.println(DoctorList.get(i).getPassword());
+					
+					if (i + 1 == DoctorList.size()) {
+						outFile.print(DoctorList.get(i).getID());
+					}
+					else {
+						outFile.println(DoctorList.get(i).getID());
+					}			
+				}
+				outFile.close();
+				return("File written succesfully");
+			} catch (FileNotFoundException e) {
+				return("Error: Unable to open file for writing");
+			}
+			
 	}
 }

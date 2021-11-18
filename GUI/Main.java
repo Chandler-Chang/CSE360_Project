@@ -1,3 +1,8 @@
+/*Quick explanation on what all the different files mean
+//Main.java just initializes the first stage/scene and pops up the login page
+The fxml files are all the visuals/gui. Basically the gpu part of the code
+The java files are the controllers of each page individually, the cpu part of the code */
+
 package application;
 
 import java.io.File;
@@ -71,7 +76,7 @@ public class Main extends Application {
     
 
     public String readPatientData() {	//NEW: READ PATIENT FILE
-		File file = new File("C:\\Users\\Chandler\\Downloads\\patientData.txt");		
+		File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\patientData.txt");		
 		try {
 			
 			Scanner read = new Scanner(file);
@@ -90,6 +95,8 @@ public class Main extends Application {
 				String allergy = read.nextLine();
 				String summary = read.nextLine();
 				String immunization = read.nextLine();
+				String prescription = read.nextLine();
+				
 				
 				Patient data = new Patient(fName, lName, uName, passwd, ID);
 				data.setBirthdate(birthdate);
@@ -101,12 +108,26 @@ public class Main extends Application {
 		    	}
 		    	String[] allSummaries = summary.split("\\|");
 		    	for(int i = 0; i < allSummaries.length; i++) {
+		    		if(allSummaries[i].equals("none")) {
+			    		break;
+			    	}
 		    		data.addSummary(allSummaries[i], allSummaries[i+1]);
 		    		i++;
 		    	}
 		    	String[] allImmunizations = immunization.split("\\|");
 		    	for(int i = 0; i < allImmunizations.length; i++) {
+		    		if(allImmunizations[i].equals("none")) {
+			    		break;
+			    	}
 		    		data.addImmunization(allImmunizations[i], allImmunizations[i+1]);
+		    		i++;
+		    	}
+		    	String[] allPrescriptions = prescription.split("\\|");
+		    	for(int i = 0; i < allPrescriptions.length; i++) {
+		    		if(allPrescriptions[i].equals("none")) {
+			    		break;
+			    	}
+		    		data.addPrescription(allPrescriptions[i], allPrescriptions[i+1]);
 		    		i++;
 		    	}
 		    	
@@ -132,7 +153,7 @@ public class Main extends Application {
 	}
     
     public String writePatientData(ArrayList<Patient> PatientList) {		
-    	File file = new File("PatientData.txt");
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\patientData.txt");
 		try {
 			PrintStream outFile = new PrintStream(file);
 			for(int i = 0; i < PatientList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
@@ -153,23 +174,48 @@ public class Main extends Application {
 		    		allergyFormat = allergyFormat + allAllergies[j] + "|";
 		    	}
 		    	outFile.println(allergyFormat);
+		    	
 		    	String summaries = "";
 		    	PatientNode summaryNode = PatientList.get(i).getSummary();
-		    	do{
-		    		summaries += summaryNode.getDate() + "|";
-		    		summaries += summaryNode.getInfo() + "|";
-		    		summaryNode = summaryNode.getNext();
-		    	}while(summaryNode.getNext() != null);
+		    	if(summaryNode == null) {
+		    		summaries += "none" + "|";
+		    	}
+		    	else {
+		    		do {
+		    			summaries += summaryNode.getDate() + "|";
+		    			summaries += summaryNode.getInfo() + "|";
+		    			summaryNode = summaryNode.getNext();
+		    		} while(summaryNode.getNext() != null);
+		    	}
 		    	outFile.println(summaries);
+		    	
 		    	String immunizations = "";
 		    	PatientNode immunizationNode = PatientList.get(i).getImmunization();
-		    	do{
-		    		immunizations += immunizationNode.getDate() + "|";
-		    		immunizations += immunizationNode.getInfo() + "|";
-		    		immunizationNode = immunizationNode.getNext();
-		    	}while(immunizationNode.getNext() != null);
+		    	if(immunizationNode == null) {
+		    		immunizations += "none" + "|";
+		    	}
+		    	else {
+		    		do {
+		    			immunizations += immunizationNode.getDate() + "|";
+		    			immunizations += immunizationNode.getInfo() + "|";
+		    			immunizationNode = immunizationNode.getNext();
+		    		} while(immunizationNode.getNext() != null);
+		    	}
 		    	outFile.println(immunizations);
-				
+		    	
+		    	String prescriptions = "";
+		    	PatientNode precriptionNode = PatientList.get(i).getPrescription();
+		    	if(precriptionNode == null) {
+		    		prescriptions += "none" + "|";
+		    	}
+		    	else {
+		    		do {
+		    			prescriptions += precriptionNode.getDate() + "|";
+		    			prescriptions += precriptionNode.getInfo() + "|";
+		    			precriptionNode = precriptionNode.getNext();
+		    		} while(precriptionNode.getNext() != null);
+		    	}
+		    	outFile.print(prescriptions);
 			}
 			outFile.close();
 			return("File written succesfully");
@@ -180,7 +226,7 @@ public class Main extends Application {
 	}
     
     public String readNurseData() {		//NEW: READ NURSE FILE
-    	File file = new File("C:\\Users\\Chandler\\Downloads\\NurseData.txt");		
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\nurseData.txt");		
 		try {
 			
 			Scanner read = new Scanner(file);
@@ -214,7 +260,7 @@ public class Main extends Application {
 	}
     
     public String writeNurseData(ArrayList<Nurse> NurseList) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
-    	File file = new File("nurseData.txt");
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\nurseData.txt");
 		try {
 			PrintStream outFile = new PrintStream(file);
 			for(int i = 0; i < NurseList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
@@ -235,7 +281,7 @@ public class Main extends Application {
 	}
     
     public String readDoctorData() {	//NEW: READ DOCTOR FILE
-    	File file = new File("C:\\Users\\Chandler\\Downloads\\doctorData.txt");		
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\doctorData.txt");		
 		try {
 			
 			Scanner read = new Scanner(file);
@@ -283,7 +329,7 @@ public class Main extends Application {
 	}
     
    public String writeDoctorData(ArrayList<Doctor> DoctorList) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
-	   File file = new File("doctorData.txt");
+	   File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\doctorData.txt");
 		try {
 			PrintStream outFile = new PrintStream(file);
 			for(int i = 0; i < DoctorList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
