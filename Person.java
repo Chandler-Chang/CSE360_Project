@@ -40,7 +40,6 @@ public class Person {
 	// Set Person's ID
 	public void setID(int ID) { this.ID = ID; }
 	
-	
 	// Returns Person's first name
 	public String getFirst() { return this.firstName; }
 
