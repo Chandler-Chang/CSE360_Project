@@ -119,7 +119,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="signoutButton" layoutX="14.0" layoutY="608.0" mnemonicParsing="false" onAction="#handleSignout" prefHeight="31.0" prefWidth="110.0" text="Sing-Out" />
+      <Button fx:id="signoutButton" layoutX="14.0" layoutY="608.0" mnemonicParsing="false" onAction="#handleSignout" prefHeight="31.0" prefWidth="110.0" text="Sign-Out" />
    </children>
    <effect>
       <Blend mode="DARKEN" />

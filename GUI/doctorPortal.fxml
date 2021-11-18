@@ -145,7 +145,7 @@
         </tabs>
       </TabPane>
       <Button fx:id="addRemovePatient" layoutX="28.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleAddRemove" prefHeight="39.0" prefWidth="117.0" text="Add/Remove" />
-      <Button fx:id="signoutButton" layoutX="21.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleSignout" prefHeight="31.0" prefWidth="117.0" text="Sing-Out" />
+      <Button fx:id="signoutButton" layoutX="21.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleSignout" prefHeight="31.0" prefWidth="117.0" text="Sign-Out" />
    </children>
    <effect>
       <Blend mode="DARKEN" />

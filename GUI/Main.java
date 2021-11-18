@@ -1,8 +1,3 @@
-/*Quick explanation on what all the different files mean
-//Main.java just initializes the first stage/scene and pops up the login page
-The fxml files are all the visuals/gui. Basically the gpu part of the code
-The java files are the controllers of each page individually, the cpu part of the code */
-
 package application;
 
 import java.io.File;
@@ -32,9 +27,9 @@ public class Main extends Application {
     	this.primaryStage = primaryStage;
     	System.out.println("Starting");
     	
-    	generatePatients();
-    	generateNurses();
-    	generateDoctors();
+    	System.out.println(readPatientData());
+    	System.out.println(readNurseData());
+    	System.out.println(readDoctorData());
     	
     	//readPatientData();
     	//readNurseData();
@@ -75,25 +70,54 @@ public class Main extends Application {
     }
     
 
-	public String readPatientData() {	//NEW: READ PATIENT FILE
-		Scanner read = null;
+    public String readPatientData() {	//NEW: READ PATIENT FILE
+		File file = new File("C:\\Users\\Chandler\\Downloads\\patientData.txt");		
 		try {
-			read = new Scanner(new File("patientData.txt"));
-			for(int i = 0; i < 100; i++) {
+			
+			Scanner read = new Scanner(file);
+			
+			while(read.hasNextLine()){
+				
 				String fName = read.nextLine();
 				String lName = read.nextLine();
 				String uName = read.nextLine();
 				String passwd = read.nextLine();
-				int ID = read.nextInt();
-				int assignedDoc = read.nextInt();
+				String IDasString = read.nextLine();
+				int ID = Integer.parseInt(IDasString);
+				String birthdate = read.nextLine();
+				String pharmacy = read.nextLine();
+				String pharmAddr = read.nextLine();
+				String allergy = read.nextLine();
+				String summary = read.nextLine();
+				String immunization = read.nextLine();
 				
 				Patient data = new Patient(fName, lName, uName, passwd, ID);
+				data.setBirthdate(birthdate);
+		    	data.setPharmacy(pharmacy);
+		    	data.setPharmacyAddress(pharmAddr);
+		    	String[] allAllergies = allergy.split("\\|");
+		    	for(int i = 0; i < allAllergies.length; i++) {
+		    		data.addAllergies(allAllergies[i]);
+		    	}
+		    	String[] allSummaries = summary.split("\\|");
+		    	for(int i = 0; i < allSummaries.length; i++) {
+		    		data.addSummary(allSummaries[i], allSummaries[i+1]);
+		    		i++;
+		    	}
+		    	String[] allImmunizations = immunization.split("\\|");
+		    	for(int i = 0; i < allImmunizations.length; i++) {
+		    		data.addImmunization(allImmunizations[i], allImmunizations[i+1]);
+		    		i++;
+		    	}
+		    	
+				/*int assignedDoc = read.nextInt();  Was before Patient data = yadayadayada
+				
 				data.setDoctor(assignedDoc);
 				data.setBirthdate(read.nextLine());
 				data.setPharmacy(read.nextLine());
 				data.setPharmacyAddress(read.nextLine());
 				data.setInsurance(read.nextLine());
-				data.addAllergies(read.nextLine());
+				data.addAllergies(read.nextLine());*/
 				
 				PatientList.add(data);		//NEW: add this patient to PatientList
 			}
@@ -107,22 +131,45 @@ public class Main extends Application {
 	
 	}
     
-    public String writePatientData(Patient[] allPatients) {		//NEW: WRITE PATIENT FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST PatientList
+    public String writePatientData(ArrayList<Patient> PatientList) {		
+    	File file = new File("PatientData.txt");
 		try {
-			PrintStream outFile = new PrintStream(new File("patientData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allPatients[i].getFirst());
-				outFile.println(allPatients[i].getLast());
-				outFile.println(allPatients[i].getUsername());
-				outFile.println(allPatients[i].getPassword());
-				outFile.println(allPatients[i].getID());
-				outFile.println(allPatients[i].getDoc());
-				outFile.println(allPatients[i].getBirthdate());
-				outFile.println(allPatients[i].getPharmacy());
-				outFile.println(allPatients[i].getPharmacyAddress());
-				outFile.println(allPatients[i].getInsurance());
-				outFile.println(allPatients[i].getAllergies());
-				outFile.println();
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < PatientList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(PatientList.get(i).getFirst());
+				outFile.println(PatientList.get(i).getLast());
+				outFile.println(PatientList.get(i).getUsername());
+				outFile.println(PatientList.get(i).getPassword());
+				outFile.println(PatientList.get(i).getID());
+				//outFile.println(allPatients[i].getDoc());
+				outFile.println(PatientList.get(i).getBirthdate());
+				outFile.println(PatientList.get(i).getPharmacy());
+				outFile.println(PatientList.get(i).getPharmacyAddress());
+				//outFile.println(allPatients[i].getInsurance());
+				String allergies = PatientList.get(i).getAllergies();
+				String[] allAllergies = allergies.split(", ");
+				String allergyFormat = "";
+		    	for(int j = 0; j < allAllergies.length; j++) {
+		    		allergyFormat = allergyFormat + allAllergies[j] + "|";
+		    	}
+		    	outFile.println(allergyFormat);
+		    	String summaries = "";
+		    	PatientNode summaryNode = PatientList.get(i).getSummary();
+		    	do{
+		    		summaries += summaryNode.getDate() + "|";
+		    		summaries += summaryNode.getInfo() + "|";
+		    		summaryNode = summaryNode.getNext();
+		    	}while(summaryNode.getNext() != null);
+		    	outFile.println(summaries);
+		    	String immunizations = "";
+		    	PatientNode immunizationNode = PatientList.get(i).getImmunization();
+		    	do{
+		    		immunizations += immunizationNode.getDate() + "|";
+		    		immunizations += immunizationNode.getInfo() + "|";
+		    		immunizationNode = immunizationNode.getNext();
+		    	}while(immunizationNode.getNext() != null);
+		    	outFile.println(immunizations);
+				
 			}
 			outFile.close();
 			return("File written succesfully");
@@ -133,20 +180,28 @@ public class Main extends Application {
 	}
     
     public String readNurseData() {		//NEW: READ NURSE FILE
-		Scanner read = null;
+    	File file = new File("C:\\Users\\Chandler\\Downloads\\NurseData.txt");		
 		try {
-			read = new Scanner(new File("nurseData.txt"));
-			for(int i = 0; i < 100; i++) {
+			
+			Scanner read = new Scanner(file);
+			
+			while(read.hasNextLine()){
+				
 				String fName = read.nextLine();
 				String lName = read.nextLine();
 				String uName = read.nextLine();
 				String passwd = read.nextLine();
-				int ID = read.nextInt();
-				int assignedDoc = read.nextInt();
+				String IDasString = read.nextLine();
+				int ID = Integer.parseInt(IDasString);
+				
+				//int assignedDoc = read.nextInt();
 				
 				Nurse data = new Nurse(fName, lName, uName, passwd, ID);
-				data.setDoctor(assignedDoc);
+				
+				//data.setDoctor(assignedDoc);
 				NurseList.add(data);	//NEW: add this nurse to the ArrayList
+				
+				
 			} 
 			
 			read.close();
@@ -158,17 +213,18 @@ public class Main extends Application {
 	
 	}
     
-    public String writeNurseData(Nurse[] allNurses) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
+    public String writeNurseData(ArrayList<Nurse> NurseList) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
+    	File file = new File("nurseData.txt");
 		try {
-			PrintStream outFile = new PrintStream(new File("nurseData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allNurses[i].getFirst());
-				outFile.println(allNurses[i].getLast());
-				outFile.println(allNurses[i].getUsername());
-				outFile.println(allNurses[i].getPassword());
-				outFile.println(allNurses[i].getID());
-				outFile.println(allNurses[i].getDoc());
-				outFile.println();
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < NurseList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(NurseList.get(i).getFirst());
+				outFile.println(NurseList.get(i).getLast());
+				outFile.println(NurseList.get(i).getUsername());
+				outFile.println(NurseList.get(i).getPassword());
+				outFile.println(NurseList.get(i).getID());
+				
+				
 			}
 			outFile.close();
 			return("File written succesfully");
@@ -179,17 +235,20 @@ public class Main extends Application {
 	}
     
     public String readDoctorData() {	//NEW: READ DOCTOR FILE
-		Scanner read = null;
+    	File file = new File("C:\\Users\\Chandler\\Downloads\\doctorData.txt");		
 		try {
-			read = new Scanner(new File("doctorData.txt"));
-			for(int i = 0; i < 100; i++) {
+			
+			Scanner read = new Scanner(file);
+			int i = 0;	//INDICATOR FOR PATIENT AND DOCTOR
+			while(read.hasNextLine()){
 				String fName = read.nextLine();
 				String lName = read.nextLine();
 				String uName = read.nextLine();
 				String passwd = read.nextLine();
-				int ID = read.nextInt();
+				String IDasString = read.nextLine();
+				int ID = Integer.parseInt(IDasString);
 				Doctor data = new Doctor(fName, lName, uName, passwd, ID);
-				String nurses = read.nextLine();
+				/*String nurses = read.nextLine();
 				int a = 0; int b = 4;
 				while(b < nurses.length()) {
 					String IDasString = nurses.substring(a, b);
@@ -206,8 +265,12 @@ public class Main extends Application {
 					data.addPatient(IDasInt);
 					a++;
 					b = a * b;
-				}
+				}*/
 				DoctorList.add(data);	//NEW: add this doctor to the ArrayList.
+				data.addPatient(PatientList.get(i).getID());
+		    	data.addNurse(NurseList.get(i).getID());
+		    	NurseList.get(i).setDoctor(data.getID());
+		    	i++;
 			}
 			
 			read.close();
@@ -219,39 +282,30 @@ public class Main extends Application {
 	
 	}
     
-    public String writeDoctorData(Doctor[] allDoctors) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
+   public String writeDoctorData(ArrayList<Doctor> DoctorList) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
+	   File file = new File("doctorData.txt");
 		try {
-			PrintStream outFile = new PrintStream(new File("doctorData.txt"));
-			for(int i = 0; i < 100; i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
-				outFile.println(allDoctors[i].getFirst());
-				outFile.println(allDoctors[i].getLast());
-				outFile.println(allDoctors[i].getUsername());
-				outFile.println(allDoctors[i].getPassword());
-				outFile.println(allDoctors[i].getID());
-				ArrayList<Integer> nursesAssigned = new ArrayList<>(10);
-				nursesAssigned = allDoctors[i].getAssignedNurses();
-				for(int j = 0; j < nursesAssigned.size(); j++) {
-					outFile.print(nursesAssigned.get(j));
-				}
-				outFile.println();
+			PrintStream outFile = new PrintStream(file);
+			for(int i = 0; i < DoctorList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
+				outFile.println(DoctorList.get(i).getFirst());
+				outFile.println(DoctorList.get(i).getLast());
+				outFile.println(DoctorList.get(i).getUsername());
+				outFile.println(DoctorList.get(i).getPassword());
+				outFile.println(DoctorList.get(i).getID());
 				
-				ArrayList<Integer> patientsAssigned = new ArrayList<>(10);
-				patientsAssigned = allDoctors[i].getAssignedPatients();
-				for(int j = 0; j < patientsAssigned.size(); j++) {
-					outFile.print(patientsAssigned.get(j));
-				}
-				outFile.println();
+				
 			}
 			outFile.close();
-			return("File written successfully");
+			return("File written succesfully");
 		} catch (FileNotFoundException e) {
-			return("Error: Unable to open Doctor file for writing");
+			return("Error: Unable to open file for writing");
 		}
 	
 	}
     
     public void generatePatients() {
-    	Patient patient = new Patient("Spongebob", "Squarepants", "ssquarepants", "gary", 1000);
+    	readPatientData();
+    	/*Patient patient = new Patient("Spongebob", "Squarepants", "ssquarepants", "gary", 1000);
     	PatientList.add(patient);
     	patient.setBirthdate("04/14/1992");
     	patient.setPharmacy("Krusty Krab");
@@ -273,19 +327,21 @@ public class Main extends Application {
     	patient2.addSummary("01/01/2022", "Got too drunk on New Years");
     	patient2.addImmunization("02/14/2019", "Tetanus");
     	patient2.addImmunization("03/17/2020", "Moderna COVID-19");
-    	PatientList.add(patient2);
+    	PatientList.add(patient2);*/
     }
     
     public void generateNurses() {
-    	Nurse nurse = new Nurse("James", "Morgan", "jmorgan", "weezing", 2000);
+    	readNurseData();
+    	/*Nurse nurse = new Nurse("James", "Morgan", "jmorgan", "weezing", 2000);
     	NurseList.add(nurse);
     	
     	Nurse nurse2 = new Nurse("Jessie", "Murrow", "jmurrow", "arbok", 2001);
-    	NurseList.add(nurse2);
+    	NurseList.add(nurse2);*/
     }
 
     public void generateDoctors() {
-    	Doctor doctor = new Doctor("James", "Sullivan", "jsullivan", "boo", 3000);
+    	readDoctorData();
+    	/*Doctor doctor = new Doctor("James", "Sullivan", "jsullivan", "boo", 3000);
     	DoctorList.add(doctor);
     	doctor.addPatient(PatientList.get(0).getID());
     	doctor.addNurse(NurseList.get(0).getID());
@@ -295,7 +351,7 @@ public class Main extends Application {
     	DoctorList.add(doctor2);
     	doctor2.addPatient(PatientList.get(1).getID());
     	doctor2.addNurse(NurseList.get(1).getID());
-    	NurseList.get(1).setDoctor(doctor2.getID());
+    	NurseList.get(1).setDoctor(doctor2.getID());*/
     }
     
 }

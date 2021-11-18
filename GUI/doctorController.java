@@ -62,6 +62,12 @@ public class doctorController {
 				immunizationArea.setText(immunizationArea.getText() + "Date: " + immunizations.getDate() + "\n" + "Summary: " + immunizations.getInfo() + "\n------------------------------------------------\n");
 				immunizations = immunizations.getNext();
 			}
+			
+			PatientNode prescriptions = patient.getPrescription();
+			while(prescriptions != null) {
+				prescriptionArea.setText(prescriptionArea.getText() + "Date: " + prescriptions.getDate() + "\n" + "Prescription: " + prescriptions.getInfo() + "\n------------------------------------------------\n");
+				prescriptions = prescriptions.getNext();
+			}
 		}
 	}
 	
@@ -103,10 +109,14 @@ public class doctorController {
 		}
 		if (!notesArea.getText().trim().isEmpty()) {
 			patient.addSummary(physicalDateBox.getText(), notesArea.getText());
+			clearData();
+			setData();
 			clearPhysicalTab();
 		}
 		else if (!prescriptionField.getText().trim().isEmpty()) {
-			patient.addSummary(prescriptionDate.getText(), prescriptionField.getText() + " " + dosageArea.getText() + "mg");
+			patient.addPrescription(prescriptionDate.getText(), prescriptionField.getText() + " " + dosageArea.getText() + "mg");
+			clearData();
+			setData();
 			clearPrescriptionTab();
 		}
 	}
@@ -158,6 +168,12 @@ public class doctorController {
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
     }
     
+    public void clearData() {
+    	patientInfoArea.clear();
+    	appHistoryArea.clear();
+    	immunizationArea.clear();
+    }
+    
 	public void clearPhysicalTab() {
 		physicalDateBox.clear();
 		functioningCBox.setSelected(false);
@@ -168,7 +184,7 @@ public class doctorController {
 	}
 	
 	public void clearPrescriptionTab() {
-		prescriptionArea.clear();
+		prescriptionField.clear();
 		dosageArea.clear();
 		prescriptionDate.clear();
 		pharmacyAddress.clear();
