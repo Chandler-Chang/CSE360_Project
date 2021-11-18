@@ -32,9 +32,9 @@ public class Main extends Application {
     	this.primaryStage = primaryStage;
     	System.out.println("Starting");
     	
-    	generatePatients();
-    	generateNurses();
-    	generateDoctors();
+    	System.out.println(readPatientData());
+    	System.out.println(readNurseData());
+    	System.out.println(readDoctorData());
     	
     	//readPatientData();
     	//readNurseData();
@@ -76,7 +76,7 @@ public class Main extends Application {
     
 
     public String readPatientData() {	//NEW: READ PATIENT FILE
-		File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\patientData.txt");		
+		File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\patientData.txt");		
 		try {
 			
 			Scanner read = new Scanner(file);
@@ -153,7 +153,7 @@ public class Main extends Application {
 	}
     
     public String writePatientData(ArrayList<Patient> PatientList) {		
-    	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\patientData.txt");
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\patientData.txt");
 		try {
 			PrintStream outFile = new PrintStream(file);
 			for(int i = 0; i < PatientList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
@@ -181,11 +181,11 @@ public class Main extends Application {
 		    		summaries += "none" + "|";
 		    	}
 		    	else {
-		    		while(summaryNode.getNext() != null){
+		    		do {
 		    			summaries += summaryNode.getDate() + "|";
 		    			summaries += summaryNode.getInfo() + "|";
 		    			summaryNode = summaryNode.getNext();
-		    		}
+		    		} while(summaryNode.getNext() != null);
 		    	}
 		    	outFile.println(summaries);
 		    	
@@ -195,11 +195,11 @@ public class Main extends Application {
 		    		immunizations += "none" + "|";
 		    	}
 		    	else {
-		    		while(immunizationNode.getNext() != null){
+		    		do {
 		    			immunizations += immunizationNode.getDate() + "|";
 		    			immunizations += immunizationNode.getInfo() + "|";
 		    			immunizationNode = immunizationNode.getNext();
-		    		}
+		    		} while(immunizationNode.getNext() != null);
 		    	}
 		    	outFile.println(immunizations);
 		    	
@@ -209,13 +209,13 @@ public class Main extends Application {
 		    		prescriptions += "none" + "|";
 		    	}
 		    	else {
-		    		while(precriptionNode.getNext() != null){
+		    		do {
 		    			prescriptions += precriptionNode.getDate() + "|";
 		    			prescriptions += precriptionNode.getInfo() + "|";
 		    			precriptionNode = precriptionNode.getNext();
-		    		}
+		    		} while(precriptionNode.getNext() != null);
 		    	}
-		    	outFile.println(prescriptions);
+		    	outFile.print(prescriptions);
 			}
 			outFile.close();
 			return("File written succesfully");
@@ -226,7 +226,7 @@ public class Main extends Application {
 	}
     
     public String readNurseData() {		//NEW: READ NURSE FILE
-    	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\nurseData.txt");		
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\nurseData.txt");		
 		try {
 			
 			Scanner read = new Scanner(file);
@@ -260,7 +260,7 @@ public class Main extends Application {
 	}
     
     public String writeNurseData(ArrayList<Nurse> NurseList) {	//NEW: WRITE NURSE FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST NurseList
-    	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\nurseData.txt");
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\nurseData.txt");
 		try {
 			PrintStream outFile = new PrintStream(file);
 			for(int i = 0; i < NurseList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS
@@ -281,7 +281,7 @@ public class Main extends Application {
 	}
     
     public String readDoctorData() {	//NEW: READ DOCTOR FILE
-    	File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\doctorData.txt");		
+    	File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\doctorData.txt");		
 		try {
 			
 			Scanner read = new Scanner(file);
@@ -329,7 +329,7 @@ public class Main extends Application {
 	}
     
    public String writeDoctorData(ArrayList<Doctor> DoctorList) {	//NEW: WRITE DOCTOR FILE, NEEDS TO BE REWRITTEN FOR ARRAYLIST DoctorList
-	   File file = new File("C:\\Users\\ap4go\\eclipse-workspace\\CSE360Project\\src\\application\\doctorData.txt");
+	   File file = new File("C:\\Users\\Chandler\\eclipse-workspace\\application\\src\\application\\doctorData.txt");
 		try {
 			PrintStream outFile = new PrintStream(file);
 			for(int i = 0; i < DoctorList.size(); i++) {					//CONTAINS ASSUMED MAXIMUM PERSONS

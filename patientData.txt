@@ -6,10 +6,10 @@ gary
 04/14/1992
 Krusty Krab
 123 Shell Lane
-Peanuts
-12/11/2022|Ingrown toenail, scheduled for surgery on 01/03/2021.|01/01/2022|Got too drunk on New Years
-02/14/2019|Tetanus|03/17/2020|Moderna COVID-19
-12/14/2045|Adderall 10mg|01/13/2003|Nyquil 2 gal
+Peanuts|
+01/01/2022|Got too drunk on New Years|12/11/2022|Ingrown toenail, scheduled for surgery on 01/03/2021.|
+03/17/2020|Moderna COVID-19|02/14/2019|Tetanus|
+01/13/2003|Nyquil 2 gal|12/14/2045|Adderall 10mg|
 Patrick
 Star
 pstar
@@ -18,7 +18,7 @@ patricia
 07/24/1990
 Chum Bucket
 104 Shell Lane
-Krabby Patties|Jellyfish
-12/11/2022|Ingrown toenail, scheduled for surgery on 01/03/2021.|01/01/2022|Got too drunk on New Years
-02/14/2019|Tetanus|03/17/2020|Moderna COVID-19
-12/14/2045|Vyvanse 10mg|01/13/2003|Dayquil 2 gal
+Krabby Patties|Jellyfish|
+11/17/2021|PLEASE|11/17/2021|PART 2|
+none|
+11/17/2021|Adderall 12mg|
