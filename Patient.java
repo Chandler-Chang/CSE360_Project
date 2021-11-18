@@ -8,12 +8,15 @@ public class Patient extends Person{
 	private String vitals;
 	private String allergies = null;
 	private int assignedDoctor = 0;
+	private String gender = "Male";
 	private PatientNode summaryHead = null;
 	private PatientNode prescriptionHead;
 	private PatientNode immunizationHead;
+	
+	private int height = 66;
+	private int weight = 150;
+	
 	//private MessageNode messageHead;
-		
-	//protected Patient[] allPatients = new Patient[100]; //NEW ADDITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	// Default Patient Constructor
 	public Patient() {}
@@ -55,23 +58,38 @@ public class Patient extends Person{
 
 	// Adds to patient's summary
 	public void addSummary(String date, String summary) {
-		summaryHead = (summaryHead == null) ?
-			new PatientNode(date, summary, null) :
-			new PatientNode(date, summary, summaryHead);
+		if (summaryHead == null) {
+			PatientNode summaryNode = new PatientNode(date, summary, null);
+			summaryHead = summaryNode;
+		}
+		else {
+			PatientNode summaryNode = new PatientNode(date, summary, summaryHead);
+			summaryHead = summaryNode;
+		}
 	}
 	
 	// Adds new prescription for the patient
 	public void addPrescription(String date, String prescription) {
-		prescriptionHead = (prescriptionHead == null) ?
-			new PatientNode(date, prescription, null) :
-			new PatientNode(date, prescription, summaryHead);
+		if (prescriptionHead == null) {
+			PatientNode prescriptionNode = new PatientNode(date, prescription, null);
+			prescriptionHead = prescriptionNode;
+		}
+		else {
+			PatientNode prescriptionNode = new PatientNode(date, prescription, prescriptionHead);
+			prescriptionHead = prescriptionNode;
+		}
 	}
 	
 	// Adds new immunization for the patient
 	public void addImmunization(String date, String immunization) {
-		immunizationHead = (immunizationHead == null) ?
-			new PatientNode(date, immunization, null) :
-			new PatientNode(date, immunization, summaryHead);
+		if (immunizationHead == null) {
+			PatientNode immunizationNode = new PatientNode(date, immunization, null);
+			immunizationHead = immunizationNode;
+		}
+		else {
+			PatientNode immunizationNode = new PatientNode(date, immunization, immunizationHead);
+			immunizationHead = immunizationNode;
+		}
 	}
 	
 	// Adds new message between patient and doctor
@@ -111,6 +129,18 @@ public class Patient extends Person{
 	
 	// Returns patient's immunizations
 	public PatientNode getImmunization() { return this.immunizationHead; }
+
+	public String getGender() { return gender; }
+
+	public void setGender(String gender) { this.gender = gender; }
+
+	public int getHeight() { return height; }
+
+	public void setHeight(int height) { this.height = height; }
+
+	public int getWeight() { return weight; }
+
+	public void setWeight(int weight) { this.weight = weight; }
 
 	// Return patient's messages
 	//public MessageNode getMessages() { return this.messageHead; }
