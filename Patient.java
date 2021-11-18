@@ -5,13 +5,13 @@ public class Patient extends Person{
 	private String pharmacy;
 	private String pharmacyAddress;
 	private String insurance;
-	private String vitals;
+	private String vitals = null;
 	private String allergies = null;
 	private int assignedDoctor = 0;
 	private String gender = "Male";
 	private PatientNode summaryHead = null;
-	private PatientNode prescriptionHead;
-	private PatientNode immunizationHead;
+	private PatientNode prescriptionHead = null;
+	private PatientNode immunizationHead = null;
 	
 	private int height = 66;
 	private int weight = 150;
@@ -70,6 +70,9 @@ public class Patient extends Person{
 	
 	// Adds new prescription for the patient
 	public void addPrescription(String date, String prescription) {
+		if (prescription.equals("none")) {
+			return;
+		}
 		if (prescriptionHead == null) {
 			PatientNode prescriptionNode = new PatientNode(date, prescription, null);
 			prescriptionHead = prescriptionNode;
