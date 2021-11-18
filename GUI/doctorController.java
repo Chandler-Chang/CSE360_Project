@@ -112,6 +112,7 @@ public class doctorController {
 	}
 	@FXML
 	public void handleAddRemove(ActionEvent event) throws IOException{
+		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("addRemovePortal.fxml"));
 		Parent root = loader.load();
 		
@@ -121,6 +122,7 @@ public class doctorController {
 		stage.setTitle("Add/Remove Patient");
 		stage.show();
 		addRemoveController.setData();
+		addRemoveController.setLists(PatientList, NurseList, DoctorList);
 	}
 	//Pops up the search patient window
 	@FXML
@@ -138,6 +140,23 @@ public class doctorController {
 		searchController.setDoctor(doctor);
 	}
 	
+	@FXML
+    private Button signoutButton;
+    @FXML
+    public void handleSignout(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+        Parent root = loader.load();
+
+        LoginController loginController = loader.getController();
+        loginController.setMain(this.main);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Office Aumation System (OAS)");
+        stage.show();
+        loginController.setData();
+        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+    }
+    
 	public void clearPhysicalTab() {
 		physicalDateBox.clear();
 		functioningCBox.setSelected(false);

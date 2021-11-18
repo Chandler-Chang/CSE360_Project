@@ -70,7 +70,6 @@ public class LoginController{
 						return;
 					}
 				}
-				System.out.println("Incorrect login"); //needs to not close the app
 				showErrorMessage();
 				break;
 			case "Nurse":
@@ -82,7 +81,6 @@ public class LoginController{
 						return;
 					}
 				}
-				System.out.println("Incorrect login");
 				showErrorMessage();
 				break;
 			case "Doctor":
@@ -94,7 +92,6 @@ public class LoginController{
 						return;
 					}
 				}
-				System.out.println("Incorrect login");
 				showErrorMessage();
 				break;
 			}
